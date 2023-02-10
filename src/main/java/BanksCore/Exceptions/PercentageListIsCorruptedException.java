@@ -1,4 +1,4 @@
-package Exceptions;
+package BanksCore.Exceptions;
 
 public class PercentageListIsCorruptedException extends Exception{
 

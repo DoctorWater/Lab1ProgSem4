@@ -1,8 +1,8 @@
-package Interfaces;
+package BanksCore.Interfaces;
 
-import Exceptions.AccountDoesNotSupportOperationException;
-import Exceptions.NotEnoughMoneyException;
-import Exceptions.TransactionAlreadyRolledBackException;
+import BanksCore.Exceptions.AccountDoesNotSupportOperationException;
+import BanksCore.Exceptions.NotEnoughMoneyException;
+import BanksCore.Exceptions.TransactionAlreadyRolledBackException;
 import java.util.UUID;
 
 public interface ITransaction {

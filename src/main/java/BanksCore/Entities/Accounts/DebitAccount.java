@@ -1,8 +1,8 @@
-package Entities.Accounts;
+package BanksCore.Entities.Accounts;
 
-import Entities.Client;
-import Exceptions.NotEnoughMoneyException;
-import Interfaces.IAccount;
+import BanksCore.Entities.Client;
+import BanksCore.Exceptions.NotEnoughMoneyException;
+import BanksCore.Interfaces.IAccount;
 import java.util.Objects;
 import java.util.UUID;
 

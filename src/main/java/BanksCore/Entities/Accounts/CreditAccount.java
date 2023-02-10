@@ -1,8 +1,8 @@
-package Entities.Accounts;
+package BanksCore.Entities.Accounts;
 
-import Entities.Client;
-import Exceptions.NotEnoughMoneyException;
-import Interfaces.IAccount;
+import BanksCore.Entities.Client;
+import BanksCore.Exceptions.NotEnoughMoneyException;
+import BanksCore.Interfaces.IAccount;
 import java.util.UUID;
 
 public class CreditAccount implements IAccount {
@@ -13,6 +13,14 @@ public class CreditAccount implements IAccount {
   private float moneyAmount;
   private float commission;
   private boolean isReliable;
+
+  public CreditAccount(UUID id, float limit, float client, float moneyAmount, Client commission) {
+    this.id = id;
+    this.limit = limit;
+    this.client = client;
+    this.moneyAmount = moneyAmount;
+    this.commission = commission;
+  }
 
   @Override
   public UUID getId() {

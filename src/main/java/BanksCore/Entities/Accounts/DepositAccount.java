@@ -1,10 +1,10 @@
-package Entities.Accounts;
+package BanksCore.Entities.Accounts;
 
-import Entities.Client;
-import Exceptions.AccountDoesNotSupportOperationException;
-import Exceptions.PercentageListIsCorruptedException;
-import Exceptions.SomeArgumentIsNullException;
-import Interfaces.IAccount;
+import BanksCore.Entities.Client;
+import BanksCore.Exceptions.AccountDoesNotSupportOperationException;
+import BanksCore.Exceptions.PercentageListIsCorruptedException;
+import BanksCore.Exceptions.SomeArgumentIsNullException;
+import BanksCore.Interfaces.IAccount;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;

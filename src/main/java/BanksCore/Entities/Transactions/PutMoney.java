@@ -1,10 +1,10 @@
-package Entities.Transactions;
+package BanksCore.Entities.Transactions;
 
-import Exceptions.AccountDoesNotSupportOperationException;
-import Exceptions.NotEnoughMoneyException;
-import Exceptions.TransactionAlreadyRolledBackException;
-import Interfaces.IAccount;
-import Interfaces.ITransaction;
+import BanksCore.Exceptions.AccountDoesNotSupportOperationException;
+import BanksCore.Exceptions.NotEnoughMoneyException;
+import BanksCore.Exceptions.TransactionAlreadyRolledBackException;
+import BanksCore.Interfaces.IAccount;
+import BanksCore.Interfaces.ITransaction;
 import java.util.UUID;
 
 public class PutMoney implements ITransaction {

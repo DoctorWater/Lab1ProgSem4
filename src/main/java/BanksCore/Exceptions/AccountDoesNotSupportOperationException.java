@@ -1,6 +1,6 @@
-package Exceptions;
+package BanksCore.Exceptions;
 
-import Interfaces.IAccount;
+import BanksCore.Interfaces.IAccount;
 
 public class AccountDoesNotSupportOperationException extends Exception{
 

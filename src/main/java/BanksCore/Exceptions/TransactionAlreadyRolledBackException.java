@@ -1,7 +1,6 @@
-package Exceptions;
+package BanksCore.Exceptions;
 
-import Entities.Transactions.CashOut;
-import Interfaces.ITransaction;
+import BanksCore.Interfaces.ITransaction;
 
 public class TransactionAlreadyRolledBackException extends Exception {
 

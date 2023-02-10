@@ -1,6 +1,6 @@
-package Services.Builders;
+package BanksCore.Services.Builders;
 
-import Entities.Client;
+import BanksCore.Entities.Client;
 import java.util.Date;
 import java.util.UUID;
 

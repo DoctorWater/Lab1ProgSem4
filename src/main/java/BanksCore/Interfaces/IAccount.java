@@ -1,7 +1,7 @@
-package Interfaces;
+package BanksCore.Interfaces;
 
-import Exceptions.AccountDoesNotSupportOperationException;
-import Exceptions.NotEnoughMoneyException;
+import BanksCore.Exceptions.AccountDoesNotSupportOperationException;
+import BanksCore.Exceptions.NotEnoughMoneyException;
 import java.util.UUID;
 
 public interface IAccount {
