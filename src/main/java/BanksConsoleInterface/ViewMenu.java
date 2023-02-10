@@ -226,7 +226,7 @@ public class ViewMenu {
         }
 
         return new CreditAccount(UUID.randomUUID(), Float.parseFloat(limit),
-            client, Float.parseFloat(commission), Float.parseFloat(moneyAmount));
+            Float.parseFloat(moneyAmount), Float.parseFloat(commission), client);
       } catch (NumberFormatException | NullPointerException e) {
         System.out.println("Input is wrong, try again.");
       } catch (InputIsIncorrectException e) {

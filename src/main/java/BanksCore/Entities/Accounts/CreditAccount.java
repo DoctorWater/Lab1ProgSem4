@@ -14,7 +14,7 @@ public class CreditAccount implements IAccount {
   private float commission;
   private boolean isReliable;
 
-  public CreditAccount(UUID id, float limit, Client client, float moneyAmount,  float commission) {
+  public CreditAccount(UUID id, float limit, float client, float moneyAmount, Client commission) {
     this.id = id;
     this.limit = limit;
     this.client = client;
