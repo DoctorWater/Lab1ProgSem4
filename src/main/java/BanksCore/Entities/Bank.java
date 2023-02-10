@@ -1,6 +1,6 @@
-package Entities;
+package BanksCore.Entities;
 
-import Interfaces.IAccount;
+import BanksCore.Interfaces.IAccount;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.UUID;

@@ -1,11 +1,11 @@
-package Services;
+package BanksCore.Services;
 
-import Entities.Bank;
-import Entities.Client;
-import Entities.Transactions.Transfer;
-import Exceptions.*;
-import Interfaces.IAccount;
-import Interfaces.ITransaction;
+import BanksCore.Entities.Bank;
+import BanksCore.Entities.Client;
+import BanksCore.Entities.Transactions.Transfer;
+import BanksCore.Exceptions.*;
+import BanksCore.Interfaces.IAccount;
+import BanksCore.Interfaces.ITransaction;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -18,28 +18,28 @@ public class CentralBank {
   private final List<Bank> banks = new ArrayList<>();
   private final List<ITransaction> transactions = new ArrayList<ITransaction>();
 
-  public Bank AddBank(String name) {
+  public Bank addBank(String name) {
     var bank = new Bank(UUID.randomUUID(), name);
     banks.add(bank);
     return bank;
   }
 
-  public void TransferMoneyBetweenAccounts(String sourceId, String destinationId, float amount)
+  public void transferMoneyBetweenAccounts(String sourceId, String destinationId, float amount)
       throws NotEnoughMoneyException, AccountDoesNotSupportOperationException, TooManyOrNoneAccountsWereFoundException {
-    IAccount source = GetAccountById(UUID.fromString(sourceId));
-    IAccount destination = GetAccountById(UUID.fromString(destinationId));
+    IAccount source = getAccountById(UUID.fromString(sourceId));
+    IAccount destination = getAccountById(UUID.fromString(destinationId));
     var transfer = new Transfer(UUID.randomUUID(), source, destination, amount);
     transactions.add(transfer);
     transfer.execute();
   }
 
-  public void RollBackTransaction(String transactionId)
+  public void rollBackTransaction(String transactionId)
       throws NotEnoughMoneyException, AccountDoesNotSupportOperationException, TransactionAlreadyRolledBackException, NoTransactionFoundException {
-    ITransaction transaction = GetTransactionById(UUID.fromString(transactionId));
+    ITransaction transaction = getTransactionById(UUID.fromString(transactionId));
     transaction.rollBack();
   }
 
-  public IAccount GetAccountById(UUID id) throws TooManyOrNoneAccountsWereFoundException {
+  public IAccount getAccountById(UUID id) throws TooManyOrNoneAccountsWereFoundException {
     try {
       Stream<Client> clientStream = banks.stream().flatMap(bank -> bank.getAllClients().stream());
       return clientStream.flatMap(client -> client.getAccounts().stream())
@@ -50,7 +50,7 @@ public class CentralBank {
     }
   }
 
-  public ITransaction GetTransactionById(UUID id) throws NoTransactionFoundException {
+  public ITransaction getTransactionById(UUID id) throws NoTransactionFoundException {
     try {
       return transactions.stream()
           .filter(currentTransaction -> currentTransaction.getId().equals(id)).findFirst()
@@ -61,7 +61,7 @@ public class CentralBank {
 
   }
 
-  public Bank GetBankById(UUID id) throws NoBankFoundException {
+  public Bank getBankById(UUID id) throws NoBankFoundException {
     try {
       return banks.stream()
           .filter(currentBank -> currentBank.getId().equals(id)).findFirst()
@@ -71,7 +71,7 @@ public class CentralBank {
     }
   }
 
-  public void SkipDays(int amount) throws NotEnoughMoneyException {
+  public void skipDays(int amount) throws NotEnoughMoneyException {
     List<IAccount> allAccounts = banks.stream().flatMap(bank -> bank.getAccounts().stream()).toList();
     for (int i=0; i<amount; i++){
       for (IAccount account: allAccounts) {
@@ -80,11 +80,11 @@ public class CentralBank {
     }
   }
 
-  public Collection<Bank> GetAllBanks() {
+  public Collection<Bank> getAllBanks() {
     return new ArrayList<>(banks);
   }
 
-  public Collection<ITransaction> GetAllTransactions() {
+  public Collection<ITransaction> getAllTransactions() {
     return new ArrayList<>(transactions);
   }
 }
