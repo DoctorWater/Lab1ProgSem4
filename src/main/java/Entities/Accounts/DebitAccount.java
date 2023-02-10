@@ -3,6 +3,7 @@ package Entities.Accounts;
 import Entities.Client;
 import Exceptions.NotEnoughMoneyException;
 import Interfaces.IAccount;
+import java.util.Objects;
 import java.util.UUID;
 
 public class DebitAccount implements IAccount {
@@ -82,5 +83,48 @@ public class DebitAccount implements IAccount {
     }
 
     return true;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (!(o instanceof DebitAccount that)) {
+      return false;
+    }
+
+    if (Float.compare(that.percentAnnual, percentAnnual) != 0) {
+      return false;
+    }
+    if (Float.compare(that.moneyAmount, moneyAmount) != 0) {
+      return false;
+    }
+    if (isReliable() != that.isReliable()) {
+      return false;
+    }
+    if (Float.compare(that.moneyForLastMonth, moneyForLastMonth) != 0) {
+      return false;
+    }
+    if (dayOfMonth != that.dayOfMonth) {
+      return false;
+    }
+    if (!getId().equals(that.getId())) {
+      return false;
+    }
+    return Objects.equals(client, that.client);
+  }
+
+  @Override
+  public int hashCode() {
+    int result = (percentAnnual != +0.0f ? Float.floatToIntBits(percentAnnual) : 0);
+    result = 31 * result + getId().hashCode();
+    result = 31 * result + (client != null ? client.hashCode() : 0);
+    result = 31 * result + (moneyAmount != +0.0f ? Float.floatToIntBits(moneyAmount) : 0);
+    result = 31 * result + (isReliable() ? 1 : 0);
+    result =
+        31 * result + (moneyForLastMonth != +0.0f ? Float.floatToIntBits(moneyForLastMonth) : 0);
+    result = 31 * result + dayOfMonth;
+    return result;
   }
 }

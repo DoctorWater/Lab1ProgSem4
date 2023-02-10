@@ -30,6 +30,14 @@ public class Bank {
     return new ArrayList<>(clients);
   }
 
+  public UUID getId() {
+    return id;
+  }
+
+  public Collection<IAccount> getAccounts() {
+    return new ArrayList<>(accounts);
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {

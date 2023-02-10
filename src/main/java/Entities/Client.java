@@ -30,8 +30,8 @@ public class Client {
     return id;
   }
 
-  public ArrayList<IAccount> getAccounts() {
-    return accounts;
+  public Collection<IAccount> getAccounts() {
+    return new ArrayList<>(accounts);
   }
 
   public String getName() {
