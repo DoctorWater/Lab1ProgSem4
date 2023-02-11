@@ -3,6 +3,7 @@ package BanksCore.Entities;
 import BanksCore.Interfaces.IAccount;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Objects;
 import java.util.UUID;
 
 public class Bank {
@@ -52,13 +53,13 @@ public class Bank {
     if (!id.equals(bank.id)) {
       return false;
     }
-    if (accounts != null ? !accounts.equals(bank.accounts) : bank.accounts != null) {
+    if (!accounts.equals(bank.accounts)) {
       return false;
     }
-    if (clients != null ? !clients.equals(bank.clients) : bank.clients != null) {
+    if (!clients.equals(bank.clients)) {
       return false;
     }
-    return name != null ? name.equals(bank.name) : bank.name == null;
+    return Objects.equals(name, bank.name);
   }
 
   @Override
@@ -74,7 +75,6 @@ public class Bank {
   public String toString() {
     return "Bank{" +
         "id=" + id +
-        ", accounts=" + accounts +
         ", clients=" + clients +
         ", name='" + name + '\'' +
         '}';

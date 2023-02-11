@@ -25,12 +25,16 @@ public class CentralBank {
   }
 
   public void transferMoneyBetweenAccounts(String sourceId, String destinationId, float amount)
-      throws NotEnoughMoneyException, AccountDoesNotSupportOperationException, TooManyOrNoneAccountsWereFoundException {
-    IAccount source = getAccountById(UUID.fromString(sourceId));
-    IAccount destination = getAccountById(UUID.fromString(destinationId));
-    var transfer = new Transfer(UUID.randomUUID(), source, destination, amount);
-    transactions.add(transfer);
-    transfer.execute();
+      throws NotEnoughMoneyException, AccountDoesNotSupportOperationException, TooManyOrNoneAccountsWereFoundException, NumberFormatException, InputIsIncorrectException {
+    if (amount > 0) {
+      IAccount source = getAccountById(UUID.fromString(sourceId));
+      IAccount destination = getAccountById(UUID.fromString(destinationId));
+      var transfer = new Transfer(UUID.randomUUID(), source, destination, amount);
+      transactions.add(transfer);
+      transfer.execute();
+    } else {
+      throw new InputIsIncorrectException();
+    }
   }
 
   public void rollBackTransaction(String transactionId)
@@ -72,9 +76,10 @@ public class CentralBank {
   }
 
   public void skipDays(int amount) throws NotEnoughMoneyException {
-    List<IAccount> allAccounts = banks.stream().flatMap(bank -> bank.getAccounts().stream()).toList();
-    for (int i=0; i<amount; i++){
-      for (IAccount account: allAccounts) {
+    List<IAccount> allAccounts = banks.stream().flatMap(bank -> bank.getAccounts().stream())
+        .toList();
+    for (int i = 0; i < amount; i++) {
+      for (IAccount account : allAccounts) {
         account.skipDayAndReturnNewAmount();
       }
     }

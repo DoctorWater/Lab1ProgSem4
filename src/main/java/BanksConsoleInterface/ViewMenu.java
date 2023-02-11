@@ -132,7 +132,9 @@ public class ViewMenu {
           System.out.println("Input is wrong, try again.");
         } else {
           var date = Date.valueOf(input);
+          System.out.println("Please, enter the client's passport number.");
           String passportNumber = scanner.nextLine();
+          System.out.println("Please, enter the client's address.");
           String address = scanner.nextLine();
           var client = new Client(UUID.randomUUID(), name, date, passportNumber, address);
           bank.addClient(client);
@@ -374,7 +376,7 @@ public class ViewMenu {
         System.out.println("Please enter the money amount");
         float moneyAmount = Float.parseFloat(scanner.nextLine());
         cb.transferMoneyBetweenAccounts(sourceId, destinationsId, moneyAmount);
-      } catch (NumberFormatException | NullPointerException e){
+      } catch (NumberFormatException | NullPointerException | InputIsIncorrectException e) {
         System.out.println("Input is wrong.");
       } catch (NotEnoughMoneyException | AccountDoesNotSupportOperationException |
                TooManyOrNoneAccountsWereFoundException e) {

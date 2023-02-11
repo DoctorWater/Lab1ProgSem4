@@ -126,7 +126,6 @@ public class Client {
   public String toString() {
     return "Client{" +
         "id=" + id +
-        ", accounts=" + accounts +
         ", name='" + name + '\'' +
         ", dateOfBirth=" + dateOfBirth +
         ", passportNumber='" + passportNumber + '\'' +
