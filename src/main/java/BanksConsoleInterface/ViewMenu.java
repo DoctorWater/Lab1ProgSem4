@@ -1,21 +1,15 @@
 package BanksConsoleInterface;
 
+
 import BanksCore.Entities.Accounts.CreditAccount;
 import BanksCore.Entities.Accounts.DebitAccount;
 import BanksCore.Entities.Accounts.DepositAccount;
 import BanksCore.Entities.Bank;
 import BanksCore.Entities.Client;
-import BanksCore.Exceptions.AccountDoesNotSupportOperationException;
-import BanksCore.Exceptions.InputIsIncorrectException;
-import BanksCore.Exceptions.NoBankFoundException;
-import BanksCore.Exceptions.NoTransactionFoundException;
-import BanksCore.Exceptions.NotEnoughMoneyException;
-import BanksCore.Exceptions.PercentageListIsCorruptedException;
-import BanksCore.Exceptions.SomeArgumentIsNullException;
-import BanksCore.Exceptions.TooManyOrNoneAccountsWereFoundException;
-import BanksCore.Exceptions.TransactionAlreadyRolledBackException;
+import BanksCore.Exceptions.*;
 import BanksCore.Interfaces.IAccount;
 import BanksCore.Services.CentralBank;
+
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
