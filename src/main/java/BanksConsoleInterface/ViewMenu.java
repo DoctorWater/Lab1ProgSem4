@@ -7,7 +7,7 @@ import BanksCore.Entities.Accounts.DepositAccount;
 import BanksCore.Entities.Bank;
 import BanksCore.Entities.Client;
 import BanksCore.Exceptions.*;
-import BanksCore.Interfaces.IAccount;
+import BanksCore.Interfaces.Account;
 import BanksCore.Services.CentralBank;
 
 import java.sql.Date;
@@ -15,6 +15,10 @@ import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.util.UUID;
+
+/**
+ * Generates the main menu and offers to select an action
+ */
 
 public class ViewMenu {
 
@@ -26,6 +30,9 @@ public class ViewMenu {
     this.cb = cb;
   }
 
+  /**
+   * Main method of the class, providing access to the menu.
+   */
   public void showMenuAndGetInput() {
     while (true) {
       System.out.println("Please, select number from the presented options: \n" +
@@ -165,7 +172,7 @@ public class ViewMenu {
               "2. Credit account. \n" +
               "3. Deposit account.");
           input = scanner.nextLine();
-          IAccount account;
+          Account account;
           switch (input) {
             case "1":
               account = createDebitAccount(client);

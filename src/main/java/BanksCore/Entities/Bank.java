@@ -1,14 +1,17 @@
 package BanksCore.Entities;
 
-import BanksCore.Interfaces.IAccount;
+import BanksCore.Interfaces.Account;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Objects;
 import java.util.UUID;
 
+/**
+ * Organization, controlling a majority of clients and accounts
+ */
 public class Bank {
   private final UUID id;
-  private final ArrayList<IAccount> accounts;
+  private final ArrayList<Account> accounts;
   private final ArrayList<Client> clients;
   private final String name;
 
@@ -19,10 +22,18 @@ public class Bank {
     clients = new ArrayList<>();
   }
 
-  public void addAccount(IAccount account){
+  /**
+   * Adds an account to the bank's collection.
+   * @param account represents the account you want to add.
+   */
+  public void addAccount(Account account){
     accounts.add(account);
   }
 
+  /**
+   * Adds a client to the bank's collection.
+   * @param client represents the client you want to add.
+   */
   public void addClient(Client client){
     clients.add(client);
   }
@@ -35,7 +46,7 @@ public class Bank {
     return id;
   }
 
-  public Collection<IAccount> getAccounts() {
+  public Collection<Account> getAccounts() {
     return new ArrayList<>(accounts);
   }
 

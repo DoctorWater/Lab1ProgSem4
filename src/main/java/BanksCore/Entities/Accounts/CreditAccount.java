@@ -2,10 +2,14 @@ package BanksCore.Entities.Accounts;
 
 import BanksCore.Entities.Client;
 import BanksCore.Exceptions.NotEnoughMoneyException;
-import BanksCore.Interfaces.IAccount;
+import BanksCore.Interfaces.Account;
 import java.util.UUID;
 
-public class CreditAccount implements IAccount {
+/**
+ * Type of account which you can use to borrow money
+ */
+
+public class CreditAccount implements Account {
 
   private UUID id;
   private float limit;
@@ -22,21 +26,36 @@ public class CreditAccount implements IAccount {
     this.commission = commission;
   }
 
+  /**
+   *  Get the unique ID of the account
+   * @return the unique ID
+   */
   @Override
   public UUID getId() {
     return id;
   }
 
+  /**
+   *  Get a boolean representing reliability of the account
+   * @return reliability of the account
+   */
   @Override
   public boolean isReliable() {
     return isReliable;
   }
 
+  /**
+   *  Changes reliability of the account to opposite
+   */
   @Override
   public void changeReliability() {
     isReliable = !isReliable;
   }
 
+  /**
+   * Skip a day to see how account changes
+   * @return new amount of money on the account
+   */
   @Override
   public float skipDayAndReturnNewAmount() throws NotEnoughMoneyException {
     if (moneyAmount < 0) {
@@ -45,17 +64,32 @@ public class CreditAccount implements IAccount {
     return moneyAmount;
   }
 
+  /**
+   * Get exact amount of money left on the account
+   * @return amount of money left on the account
+   */
   @Override
   public float getMoney() {
     return moneyAmount;
   }
 
+  /**
+   * Allows to add money on the account
+   * @param amount declares how much money will be added
+   * @return new amount of money on the account
+   */
   @Override
   public float addMoney(float amount) {
     moneyAmount += amount;
     return moneyAmount;
   }
 
+  /**
+   * Withdraws money from the account
+   * @param amount declares how much money will be withdrawn
+   * @return new amount of money on the account
+   * @throws NotEnoughMoneyException is thrown if account does not have enough money on the account.
+   */
   @Override
   public float takeMoney(float amount) throws NotEnoughMoneyException {
     if (isEnoughMoney(amount)) {
@@ -65,6 +99,11 @@ public class CreditAccount implements IAccount {
     throw new NotEnoughMoneyException(this, amount);
   }
 
+  /**
+   * Checks is there enough money on the account
+   * @param amount declares an amount you want to check
+   * @return true -- if there is enough money on the account, false -- if not
+   */
   @Override
   public boolean isEnoughMoney(float amount) {
     if (moneyAmount + Math.abs(limit) < amount) {
@@ -74,17 +113,36 @@ public class CreditAccount implements IAccount {
     return true;
   }
 
+  /**
+   * Gets the limit of the account
+   * @return the limit of the account
+   */
   public float getLimit() {
     return limit;
   }
+
+  /**
+   * Gets the owner of the account
+   * @return the owner of the account
+   */
 
   public Client getClient() {
     return client;
   }
 
+  /**
+   * Gets the money amount of the account
+   * @return the money amount of the account
+   */
+
   public float getMoneyAmount() {
     return moneyAmount;
   }
+
+  /**
+   * Gets the commission per day of the account
+   * @return the commission per day of the account
+   */
 
   public float getCommission() {
     return commission;

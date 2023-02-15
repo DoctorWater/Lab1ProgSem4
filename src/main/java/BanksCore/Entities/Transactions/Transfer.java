@@ -3,19 +3,20 @@ package BanksCore.Entities.Transactions;
 import BanksCore.Exceptions.AccountDoesNotSupportOperationException;
 import BanksCore.Exceptions.NotEnoughMoneyException;
 import BanksCore.Exceptions.TransactionAlreadyRolledBackException;
-import BanksCore.Interfaces.IAccount;
-import BanksCore.Interfaces.ITransaction;
+import BanksCore.Interfaces.Account;
+import BanksCore.Interfaces.Transaction;
 import java.util.UUID;
 
-public class Transfer implements ITransaction {
 
-  private boolean isRolledBack;
+
+public class Transfer implements Transaction {
   private UUID id;
-  private IAccount sourceAccount;
-  private IAccount destinationAccount;
+  private Account sourceAccount;
+  private Account destinationAccount;
   private float amountOfMoney;
+  private boolean isRolledBack;
 
-  public Transfer(UUID id, IAccount sourceAccount, IAccount destinationAccount,
+  public Transfer(UUID id, Account sourceAccount, Account destinationAccount,
       float amountOfMoney) {
     this.id = id;
     this.sourceAccount = sourceAccount;
@@ -25,7 +26,7 @@ public class Transfer implements ITransaction {
   }
 
   @Override
-  public ITransaction execute()
+  public Transaction execute()
       throws NotEnoughMoneyException, AccountDoesNotSupportOperationException {
     sourceAccount.takeMoney(amountOfMoney);
     destinationAccount.addMoney(amountOfMoney);
