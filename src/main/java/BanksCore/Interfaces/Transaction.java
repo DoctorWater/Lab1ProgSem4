@@ -15,7 +15,7 @@ public interface Transaction {
    * @throws NotEnoughMoneyException if transaction requires more money than the account is ready to provide.
    * @throws AccountDoesNotSupportOperationException if transaction invokes an operation unavailable for the provided account.
    */
-  public Transaction execute()
+  Transaction execute()
       throws NotEnoughMoneyException, AccountDoesNotSupportOperationException;
 
   /**
@@ -24,7 +24,7 @@ public interface Transaction {
    * @throws NotEnoughMoneyException if there is no enough money to roll back the transaction.
    * @throws AccountDoesNotSupportOperationException if the account is not allowed to execute an operation which is a part of rolling back.
    */
-  public void rollBack()
+  void rollBack()
       throws TransactionAlreadyRolledBackException, NotEnoughMoneyException, AccountDoesNotSupportOperationException;
-  public UUID getId();
+  UUID getId();
 }
