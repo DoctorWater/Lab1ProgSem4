@@ -1,0 +1,883 @@
+Index: src/main/java/BanksCore/Entities/Client.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package BanksCore.Entities;\r\n\r\nimport BanksCore.Interfaces.IAccount;\r\nimport java.util.ArrayList;\r\nimport java.util.Collection;\r\nimport java.util.Date;\r\nimport java.util.UUID;\r\n\r\npublic class Client {\r\n\r\n  private final UUID id;\r\n  private final ArrayList<IAccount> accounts;\r\n  private final String name;\r\n  private final Date dateOfBirth;\r\n  private String passportNumber;\r\n  private String address;\r\n  private boolean isReliable;\r\n\r\n  public Client(UUID id, String name, Date dateOfBirth, String passportNumber, String address) {\r\n    this.id = id;\r\n    this.accounts = new ArrayList<>();\r\n    this.name = name;\r\n    this.dateOfBirth = dateOfBirth;\r\n    this.passportNumber = passportNumber;\r\n    this.address = address;\r\n    this.isReliable = !passportNumber.equals(\"\") && !address.equals(\"\");\r\n  }\r\n\r\n  public UUID getId() {\r\n    return id;\r\n  }\r\n\r\n  public Collection<IAccount> getAccounts() {\r\n    return new ArrayList<>(accounts);\r\n  }\r\n\r\n  public String getName() {\r\n    return name;\r\n  }\r\n\r\n\r\n  public Date getDateOfBirth() {\r\n    return dateOfBirth;\r\n  }\r\n\r\n\r\n  public String getPassportNumber() {\r\n    return passportNumber;\r\n  }\r\n\r\n  public void setPassportNumber(String number) {\r\n    passportNumber = number;\r\n    isReliable = !passportNumber.equals(\"\") && !address.equals(\"\");\r\n  }\r\n\r\n  public String getAddress() {\r\n    return address;\r\n  }\r\n\r\n  public void setAddress(String address) {\r\n    this.address = address;\r\n    isReliable = !passportNumber.equals(\"\") && !this.address.equals(\"\");\r\n  }\r\n\r\n\r\n  public boolean isReliable() {\r\n    return isReliable;\r\n  }\r\n\r\n\r\n  public void addAccount(IAccount account) {\r\n    accounts.add(account);\r\n  }\r\n\r\n  public Collection<IAccount> getAllAccounts() {\r\n    return new ArrayList<>(accounts);\r\n  }\r\n\r\n  @Override\r\n  public boolean equals(Object o) {\r\n    if (this == o) {\r\n      return true;\r\n    }\r\n    if (o == null || getClass() != o.getClass()) {\r\n      return false;\r\n    }\r\n\r\n    Client client = (Client) o;\r\n\r\n    if (isReliable != client.isReliable) {\r\n      return false;\r\n    }\r\n    if (!id.equals(client.id)) {\r\n      return false;\r\n    }\r\n    if (accounts != null ? !accounts.equals(client.accounts) : client.accounts != null) {\r\n      return false;\r\n    }\r\n    if (name != null ? !name.equals(client.name) : client.name != null) {\r\n      return false;\r\n    }\r\n    if (dateOfBirth != null ? !dateOfBirth.equals(client.dateOfBirth)\r\n        : client.dateOfBirth != null) {\r\n      return false;\r\n    }\r\n    if (passportNumber != null ? !passportNumber.equals(client.passportNumber)\r\n        : client.passportNumber != null) {\r\n      return false;\r\n    }\r\n    return address != null ? address.equals(client.address) : client.address == null;\r\n  }\r\n\r\n  @Override\r\n  public int hashCode() {\r\n    int result = id.hashCode();\r\n    result = 31 * result + (accounts != null ? accounts.hashCode() : 0);\r\n    result = 31 * result + (name != null ? name.hashCode() : 0);\r\n    result = 31 * result + (dateOfBirth != null ? dateOfBirth.hashCode() : 0);\r\n    result = 31 * result + (passportNumber != null ? passportNumber.hashCode() : 0);\r\n    result = 31 * result + (address != null ? address.hashCode() : 0);\r\n    result = 31 * result + (isReliable ? 1 : 0);\r\n    return result;\r\n  }\r\n\r\n  @Override\r\n  public String toString() {\r\n    return \"Client{\" +\r\n        \"id=\" + id +\r\n        \", name='\" + name + '\\'' +\r\n        \", dateOfBirth=\" + dateOfBirth +\r\n        \", passportNumber='\" + passportNumber + '\\'' +\r\n        \", address='\" + address + '\\'' +\r\n        \", isReliable=\" + isReliable +\r\n        '}';\r\n  }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/BanksCore/Entities/Client.java b/src/main/java/BanksCore/Entities/Client.java
+--- a/src/main/java/BanksCore/Entities/Client.java	(revision c718fca2d5f63cfc31ded00d9c48cfbfdee90c59)
++++ b/src/main/java/BanksCore/Entities/Client.java	(date 1676155295043)
+@@ -1,15 +1,17 @@
+ package BanksCore.Entities;
+ 
+-import BanksCore.Interfaces.IAccount;
++import BanksCore.Interfaces.Account;
+ import java.util.ArrayList;
+ import java.util.Collection;
+ import java.util.Date;
+ import java.util.UUID;
+-
++/**
++ * A client of a certain bank, obtaining different accounts
++ */
+ public class Client {
+ 
+   private final UUID id;
+-  private final ArrayList<IAccount> accounts;
++  private final ArrayList<Account> accounts;
+   private final String name;
+   private final Date dateOfBirth;
+   private String passportNumber;
+@@ -30,7 +32,7 @@
+     return id;
+   }
+ 
+-  public Collection<IAccount> getAccounts() {
++  public Collection<Account> getAccounts() {
+     return new ArrayList<>(accounts);
+   }
+ 
+@@ -68,11 +70,11 @@
+   }
+ 
+ 
+-  public void addAccount(IAccount account) {
++  public void addAccount(Account account) {
+     accounts.add(account);
+   }
+ 
+-  public Collection<IAccount> getAllAccounts() {
++  public Collection<Account> getAllAccounts() {
+     return new ArrayList<>(accounts);
+   }
+ 
+Index: src/main/java/BanksCore/Entities/Bank.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package BanksCore.Entities;\r\n\r\nimport BanksCore.Interfaces.IAccount;\r\nimport java.util.ArrayList;\r\nimport java.util.Collection;\r\nimport java.util.Objects;\r\nimport java.util.UUID;\r\n\r\npublic class Bank {\r\n  private final UUID id;\r\n  private final ArrayList<IAccount> accounts;\r\n  private final ArrayList<Client> clients;\r\n  private final String name;\r\n\r\n  public Bank(UUID id, String name) {\r\n    this.id = id;\r\n    this.name = name;\r\n    accounts = new ArrayList<>();\r\n    clients = new ArrayList<>();\r\n  }\r\n\r\n  public void addAccount(IAccount account){\r\n    accounts.add(account);\r\n  }\r\n\r\n  public void addClient(Client client){\r\n    clients.add(client);\r\n  }\r\n\r\n  public Collection<Client> getAllClients(){\r\n    return new ArrayList<>(clients);\r\n  }\r\n\r\n  public UUID getId() {\r\n    return id;\r\n  }\r\n\r\n  public Collection<IAccount> getAccounts() {\r\n    return new ArrayList<>(accounts);\r\n  }\r\n\r\n  @Override\r\n  public boolean equals(Object o) {\r\n    if (this == o) {\r\n      return true;\r\n    }\r\n    if (o == null || getClass() != o.getClass()) {\r\n      return false;\r\n    }\r\n\r\n    Bank bank = (Bank) o;\r\n\r\n    if (!id.equals(bank.id)) {\r\n      return false;\r\n    }\r\n    if (!accounts.equals(bank.accounts)) {\r\n      return false;\r\n    }\r\n    if (!clients.equals(bank.clients)) {\r\n      return false;\r\n    }\r\n    return Objects.equals(name, bank.name);\r\n  }\r\n\r\n  @Override\r\n  public int hashCode() {\r\n    int result = id.hashCode();\r\n    result = 31 * result + (accounts != null ? accounts.hashCode() : 0);\r\n    result = 31 * result + (clients != null ? clients.hashCode() : 0);\r\n    result = 31 * result + (name != null ? name.hashCode() : 0);\r\n    return result;\r\n  }\r\n\r\n  @Override\r\n  public String toString() {\r\n    return \"Bank{\" +\r\n        \"id=\" + id +\r\n        \", clients=\" + clients +\r\n        \", name='\" + name + '\\'' +\r\n        '}';\r\n  }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/BanksCore/Entities/Bank.java b/src/main/java/BanksCore/Entities/Bank.java
+--- a/src/main/java/BanksCore/Entities/Bank.java	(revision c718fca2d5f63cfc31ded00d9c48cfbfdee90c59)
++++ b/src/main/java/BanksCore/Entities/Bank.java	(date 1676155295035)
+@@ -1,14 +1,17 @@
+ package BanksCore.Entities;
+ 
+-import BanksCore.Interfaces.IAccount;
++import BanksCore.Interfaces.Account;
+ import java.util.ArrayList;
+ import java.util.Collection;
+ import java.util.Objects;
+ import java.util.UUID;
+ 
++/**
++ * Organization, controlling a majority of clients and accounts
++ */
+ public class Bank {
+   private final UUID id;
+-  private final ArrayList<IAccount> accounts;
++  private final ArrayList<Account> accounts;
+   private final ArrayList<Client> clients;
+   private final String name;
+ 
+@@ -19,7 +22,7 @@
+     clients = new ArrayList<>();
+   }
+ 
+-  public void addAccount(IAccount account){
++  public void addAccount(Account account){
+     accounts.add(account);
+   }
+ 
+@@ -35,7 +38,7 @@
+     return id;
+   }
+ 
+-  public Collection<IAccount> getAccounts() {
++  public Collection<Account> getAccounts() {
+     return new ArrayList<>(accounts);
+   }
+ 
+Index: src/main/java/BanksCore/Exceptions/AccountDoesNotSupportOperationException.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package BanksCore.Exceptions;\r\n\r\nimport BanksCore.Interfaces.IAccount;\r\n\r\npublic class AccountDoesNotSupportOperationException extends Exception{\r\n\r\n  public AccountDoesNotSupportOperationException(IAccount account) {\r\n    super(\"This account does not support an operation you try to proceed: \" + account);\r\n  }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/BanksCore/Exceptions/AccountDoesNotSupportOperationException.java b/src/main/java/BanksCore/Exceptions/AccountDoesNotSupportOperationException.java
+--- a/src/main/java/BanksCore/Exceptions/AccountDoesNotSupportOperationException.java	(revision c718fca2d5f63cfc31ded00d9c48cfbfdee90c59)
++++ b/src/main/java/BanksCore/Exceptions/AccountDoesNotSupportOperationException.java	(date 1676104103968)
+@@ -1,10 +1,10 @@
+ package BanksCore.Exceptions;
+ 
+-import BanksCore.Interfaces.IAccount;
++import BanksCore.Interfaces.Account;
+ 
+ public class AccountDoesNotSupportOperationException extends Exception{
+ 
+-  public AccountDoesNotSupportOperationException(IAccount account) {
++  public AccountDoesNotSupportOperationException(Account account) {
+     super("This account does not support an operation you try to proceed: " + account);
+   }
+ }
+Index: src/main/java/BanksCore/Entities/Accounts/DepositAccount.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package BanksCore.Entities.Accounts;\r\n\r\nimport BanksCore.Entities.Client;\r\nimport BanksCore.Exceptions.AccountDoesNotSupportOperationException;\r\nimport BanksCore.Exceptions.PercentageListIsCorruptedException;\r\nimport BanksCore.Exceptions.SomeArgumentIsNullException;\r\nimport BanksCore.Interfaces.IAccount;\r\nimport java.util.List;\r\nimport java.util.Objects;\r\nimport java.util.UUID;\r\n\r\npublic class DepositAccount implements IAccount {\r\n\r\n  private UUID id;\r\n  private float percentAnnual;\r\n  private Client client;\r\n  private float moneyAmount;\r\n  private boolean isReliable;\r\n  private float moneyForLastMonth = 0;\r\n  private int dayOfMonth = 0; // we count a month as 30 days\r\n\r\n  public DepositAccount(UUID id, List<Float> percentsAnnual, float moneyAmount, Client client)\r\n      throws SomeArgumentIsNullException, PercentageListIsCorruptedException {\r\n    if (percentsAnnual == null) {\r\n      throw new SomeArgumentIsNullException();\r\n    }\r\n\r\n    if (percentsAnnual.size() != 4) {\r\n      throw new PercentageListIsCorruptedException(percentsAnnual.size());\r\n    }\r\n\r\n    this.id = id;\r\n    this.moneyAmount = moneyAmount;\r\n    percentAnnual = DeterminePercent(percentsAnnual);\r\n    if (client == null) {\r\n      throw new SomeArgumentIsNullException();\r\n    } else {\r\n      this.client = client;\r\n    }\r\n    isReliable = client.isReliable();\r\n  }\r\n\r\n  public UUID getId() {\r\n    return id;\r\n  }\r\n\r\n  public boolean isReliable() {\r\n    return isReliable;\r\n  }\r\n\r\n  public void changeReliability() {\r\n    isReliable = !isReliable;\r\n  }\r\n\r\n  public float skipDayAndReturnNewAmount() {\r\n    moneyForLastMonth += moneyAmount * (percentAnnual / 365);\r\n    if (dayOfMonth == 30) {\r\n      dayOfMonth = 0;\r\n      moneyAmount += moneyForLastMonth;\r\n      moneyForLastMonth = 0;\r\n    } else {\r\n      dayOfMonth++;\r\n    }\r\n\r\n    return moneyAmount;\r\n  }\r\n\r\n  public float getMoney() {\r\n    return moneyAmount;\r\n  }\r\n\r\n  public float addMoney(float amount) {\r\n    moneyAmount += amount;\r\n    return moneyAmount;\r\n  }\r\n\r\n  public float takeMoney(float amount) throws AccountDoesNotSupportOperationException {\r\n    throw new AccountDoesNotSupportOperationException(this);\r\n  }\r\n\r\n  public boolean isEnoughMoney(float amount) {\r\n    return !(moneyAmount < amount);\r\n  }\r\n\r\n  @Override\r\n  public boolean equals(Object o) {\r\n    if (this == o) {\r\n      return true;\r\n    }\r\n    if (!(o instanceof DepositAccount that)) {\r\n      return false;\r\n    }\r\n\r\n    if (Float.compare(that.percentAnnual, percentAnnual) != 0) {\r\n      return false;\r\n    }\r\n    if (Float.compare(that.moneyAmount, moneyAmount) != 0) {\r\n      return false;\r\n    }\r\n    if (isReliable() != that.isReliable()) {\r\n      return false;\r\n    }\r\n    if (Float.compare(that.moneyForLastMonth, moneyForLastMonth) != 0) {\r\n      return false;\r\n    }\r\n    if (dayOfMonth != that.dayOfMonth) {\r\n      return false;\r\n    }\r\n    if (!getId().equals(that.getId())) {\r\n      return false;\r\n    }\r\n    return Objects.equals(client, that.client);\r\n  }\r\n\r\n  private float DeterminePercent(List<Float> percentsAnnual) {\r\n    final float FIRST_LEVEL = 50000;\r\n    final float SECOND_LEVEL = 200000;\r\n    final float THIRD_LEVEL = 500000;\r\n    if (moneyAmount < FIRST_LEVEL) {\r\n      return percentsAnnual.get(0);\r\n    }\r\n\r\n    if (moneyAmount > FIRST_LEVEL & moneyAmount < SECOND_LEVEL) {\r\n      return percentsAnnual.get(1);\r\n    }\r\n\r\n    if (moneyAmount > SECOND_LEVEL & moneyAmount < THIRD_LEVEL) {\r\n      return percentsAnnual.get(2);\r\n    }\r\n\r\n    return percentsAnnual.get(3);\r\n  }\r\n\r\n  @Override\r\n  public int hashCode() {\r\n    int result = getId().hashCode();\r\n    result = 31 * result + (percentAnnual != +0.0f ? Float.floatToIntBits(percentAnnual) : 0);\r\n    result = 31 * result + (client != null ? client.hashCode() : 0);\r\n    result = 31 * result + (moneyAmount != +0.0f ? Float.floatToIntBits(moneyAmount) : 0);\r\n    result = 31 * result + (isReliable() ? 1 : 0);\r\n    result =\r\n        31 * result + (moneyForLastMonth != +0.0f ? Float.floatToIntBits(moneyForLastMonth) : 0);\r\n    result = 31 * result + dayOfMonth;\r\n    return result;\r\n  }\r\n\r\n  @Override\r\n  public String toString() {\r\n    return \"DepositAccount{\" +\r\n        \"id=\" + id +\r\n        \", percentAnnual=\" + percentAnnual +\r\n        \", client=\" + client +\r\n        \", moneyAmount=\" + moneyAmount +\r\n        \", isReliable=\" + isReliable +\r\n        \", moneyForLastMonth=\" + moneyForLastMonth +\r\n        \", dayOfMonth=\" + dayOfMonth +\r\n        '}';\r\n  }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/BanksCore/Entities/Accounts/DepositAccount.java b/src/main/java/BanksCore/Entities/Accounts/DepositAccount.java
+--- a/src/main/java/BanksCore/Entities/Accounts/DepositAccount.java	(revision c718fca2d5f63cfc31ded00d9c48cfbfdee90c59)
++++ b/src/main/java/BanksCore/Entities/Accounts/DepositAccount.java	(date 1676240608234)
+@@ -2,14 +2,18 @@
+ 
+ import BanksCore.Entities.Client;
+ import BanksCore.Exceptions.AccountDoesNotSupportOperationException;
++import BanksCore.Exceptions.NotEnoughMoneyException;
+ import BanksCore.Exceptions.PercentageListIsCorruptedException;
+ import BanksCore.Exceptions.SomeArgumentIsNullException;
+-import BanksCore.Interfaces.IAccount;
++import BanksCore.Interfaces.Account;
+ import java.util.List;
+ import java.util.Objects;
+ import java.util.UUID;
+ 
+-public class DepositAccount implements IAccount {
++/**
++ * Type of account which you can use to store money and take them all after lifetime of the account expires
++ */
++public class DepositAccount implements Account {
+ 
+   private UUID id;
+   private float percentAnnual;
+@@ -40,18 +44,33 @@
+     isReliable = client.isReliable();
+   }
+ 
++  /**
++   *  Get the unique ID of the account
++   * @return the unique ID
++   */
+   public UUID getId() {
+     return id;
+   }
+ 
++  /**
++   *  Get a boolean representing reliability of the account
++   * @return reliability of the account
++   */
+   public boolean isReliable() {
+     return isReliable;
+   }
+ 
++  /**
++   *  Changes reliability of the account to opposite
++   */
+   public void changeReliability() {
+     isReliable = !isReliable;
+   }
+ 
++  /**
++   * Skip a day to see how account changes
++   * @return new amount of money on the account
++   */
+   public float skipDayAndReturnNewAmount() {
+     moneyForLastMonth += moneyAmount * (percentAnnual / 365);
+     if (dayOfMonth == 30) {
+@@ -65,19 +84,39 @@
+     return moneyAmount;
+   }
+ 
++  /**
++   * Get exact amount of money left on the account
++   * @return amount of money left on the account
++   */
+   public float getMoney() {
+     return moneyAmount;
+   }
+ 
++  /**
++   * Allows to add money on the account
++   * @param amount declares how much money will be added
++   * @return new amount of money on the account
++   */
+   public float addMoney(float amount) {
+     moneyAmount += amount;
+     return moneyAmount;
+   }
+ 
++  /**
++   * Money from this account can not be taken!!!
++   * @param amount declares how much money will be withdrawn
++   * @return new amount of money on the account
++   * @throws AccountDoesNotSupportOperationException is thrown every time this method is called
++   */
+   public float takeMoney(float amount) throws AccountDoesNotSupportOperationException {
+     throw new AccountDoesNotSupportOperationException(this);
+   }
+ 
++  /**
++   * Checks is there enough money on the account
++   * @param amount declares an amount you want to check
++   * @return true -- if there is enough money on the account, false -- if not
++   */
+   public boolean isEnoughMoney(float amount) {
+     return !(moneyAmount < amount);
+   }
+Index: src/main/java/BanksCore/Entities/Transactions/Transfer.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package BanksCore.Entities.Transactions;\r\n\r\nimport BanksCore.Exceptions.AccountDoesNotSupportOperationException;\r\nimport BanksCore.Exceptions.NotEnoughMoneyException;\r\nimport BanksCore.Exceptions.TransactionAlreadyRolledBackException;\r\nimport BanksCore.Interfaces.IAccount;\r\nimport BanksCore.Interfaces.ITransaction;\r\nimport java.util.UUID;\r\n\r\npublic class Transfer implements ITransaction {\r\n\r\n  private boolean isRolledBack;\r\n  private UUID id;\r\n  private IAccount sourceAccount;\r\n  private IAccount destinationAccount;\r\n  private float amountOfMoney;\r\n\r\n  public Transfer(UUID id, IAccount sourceAccount, IAccount destinationAccount,\r\n      float amountOfMoney) {\r\n    this.id = id;\r\n    this.sourceAccount = sourceAccount;\r\n    this.destinationAccount = destinationAccount;\r\n    this.amountOfMoney = amountOfMoney;\r\n    isRolledBack = false;\r\n  }\r\n\r\n  @Override\r\n  public ITransaction execute()\r\n      throws NotEnoughMoneyException, AccountDoesNotSupportOperationException {\r\n    sourceAccount.takeMoney(amountOfMoney);\r\n    destinationAccount.addMoney(amountOfMoney);\r\n    return this;\r\n  }\r\n\r\n  @Override\r\n  public void rollBack()\r\n      throws TransactionAlreadyRolledBackException, NotEnoughMoneyException, AccountDoesNotSupportOperationException {\r\n    if (isRolledBack) {\r\n      throw new TransactionAlreadyRolledBackException(this);\r\n    }\r\n\r\n    destinationAccount.takeMoney(amountOfMoney);\r\n    sourceAccount.addMoney(amountOfMoney);\r\n    isRolledBack = true;\r\n  }\r\n\r\n  @Override\r\n  public UUID getId() {\r\n    return null;\r\n  }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/BanksCore/Entities/Transactions/Transfer.java b/src/main/java/BanksCore/Entities/Transactions/Transfer.java
+--- a/src/main/java/BanksCore/Entities/Transactions/Transfer.java	(revision c718fca2d5f63cfc31ded00d9c48cfbfdee90c59)
++++ b/src/main/java/BanksCore/Entities/Transactions/Transfer.java	(date 1676480356580)
+@@ -3,19 +3,20 @@
+ import BanksCore.Exceptions.AccountDoesNotSupportOperationException;
+ import BanksCore.Exceptions.NotEnoughMoneyException;
+ import BanksCore.Exceptions.TransactionAlreadyRolledBackException;
+-import BanksCore.Interfaces.IAccount;
+-import BanksCore.Interfaces.ITransaction;
++import BanksCore.Interfaces.Account;
++import BanksCore.Interfaces.Transaction;
+ import java.util.UUID;
+ 
+-public class Transfer implements ITransaction {
++public class Transfer implements Transaction {
+ 
+-  private boolean isRolledBack;
++
+   private UUID id;
+-  private IAccount sourceAccount;
+-  private IAccount destinationAccount;
++  private Account sourceAccount;
++  private Account destinationAccount;
+   private float amountOfMoney;
++  private boolean isRolledBack;
+ 
+-  public Transfer(UUID id, IAccount sourceAccount, IAccount destinationAccount,
++  public Transfer(UUID id, Account sourceAccount, Account destinationAccount,
+       float amountOfMoney) {
+     this.id = id;
+     this.sourceAccount = sourceAccount;
+@@ -25,7 +26,7 @@
+   }
+ 
+   @Override
+-  public ITransaction execute()
++  public Transaction execute()
+       throws NotEnoughMoneyException, AccountDoesNotSupportOperationException {
+     sourceAccount.takeMoney(amountOfMoney);
+     destinationAccount.addMoney(amountOfMoney);
+Index: src/main/java/BanksConsoleInterface/ViewMenu.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package BanksConsoleInterface;\r\n\r\nimport BanksCore.Entities.Accounts.CreditAccount;\r\nimport BanksCore.Entities.Accounts.DebitAccount;\r\nimport BanksCore.Entities.Accounts.DepositAccount;\r\nimport BanksCore.Entities.Bank;\r\nimport BanksCore.Entities.Client;\r\nimport BanksCore.Exceptions.AccountDoesNotSupportOperationException;\r\nimport BanksCore.Exceptions.InputIsIncorrectException;\r\nimport BanksCore.Exceptions.NoBankFoundException;\r\nimport BanksCore.Exceptions.NoTransactionFoundException;\r\nimport BanksCore.Exceptions.NotEnoughMoneyException;\r\nimport BanksCore.Exceptions.PercentageListIsCorruptedException;\r\nimport BanksCore.Exceptions.SomeArgumentIsNullException;\r\nimport BanksCore.Exceptions.TooManyOrNoneAccountsWereFoundException;\r\nimport BanksCore.Exceptions.TransactionAlreadyRolledBackException;\r\nimport BanksCore.Interfaces.IAccount;\r\nimport BanksCore.Services.CentralBank;\r\nimport java.sql.Date;\r\nimport java.util.ArrayList;\r\nimport java.util.NoSuchElementException;\r\nimport java.util.Scanner;\r\nimport java.util.UUID;\r\n\r\npublic class ViewMenu {\r\n\r\n  private String input;\r\n  private final CentralBank cb;\r\n  private final Scanner scanner = new Scanner(System.in);\r\n\r\n  public ViewMenu(CentralBank cb) {\r\n    this.cb = cb;\r\n  }\r\n\r\n  public void showMenuAndGetInput() {\r\n    while (true) {\r\n      System.out.println(\"Please, select number from the presented options: \\n\" +\r\n          \"1. Create a new bank. \\n\" +\r\n          \"2. Create a new client of a certain bank. \\n\" +\r\n          \"3. Create a new account of a certain client of a certain bank. \\n\" +\r\n          \"4. Make a transaction between existing accounts. \\n\" +\r\n          \"5. Skip some time. \\n\" +\r\n          \"6. Show all banks. \\n\" +\r\n          \"7. Show all clients of a bank. \\n\" +\r\n          \"8. Show all accounts of a client in a certain bank. \\n\" +\r\n          \"9. Roll back transaction by ID. \\n\" +\r\n          \"10. Show all transactions.\");\r\n      input = scanner.nextLine();\r\n      if (!input.equals(\"\")) {\r\n        try {\r\n          int i = Integer.parseInt(input);\r\n          switch (i) {\r\n            case 1:\r\n              createBankMenu();\r\n              break;\r\n            case 2:\r\n              createClientMenu();\r\n              break;\r\n            case 3:\r\n              createAccountMenu();\r\n              break;\r\n            case 4:\r\n              transferMoney();\r\n              break;\r\n            case 5:\r\n              skipSomeTime();\r\n              break;\r\n            case 6:\r\n              showAllBanks();\r\n              break;\r\n            case 7:\r\n              showAllClients();\r\n              break;\r\n            case 8:\r\n              showAllAccounts();\r\n              break;\r\n            case 9:\r\n              rollBackTransaction();\r\n              break;\r\n            case 10:\r\n              showAllTransactions();\r\n              break;\r\n            default:\r\n              throw new IllegalArgumentException();\r\n          }\r\n\r\n          break;\r\n        } catch (IllegalArgumentException | NullPointerException e) {\r\n          System.out.println(\"Input is wrong, try again.\");\r\n        }\r\n      } else {\r\n        System.out.println(\"Input is wrong, try again.\");\r\n      }\r\n    }\r\n  }\r\n\r\n  private void createBankMenu() {\r\n    try {\r\n      while (true) {\r\n        System.out.println(\"Please, enter the bank's name.\");\r\n        input = scanner.nextLine();\r\n        if (input.equals(\"\")) {\r\n          throw new InputIsIncorrectException();\r\n        }\r\n\r\n        cb.addBank(input);\r\n        break;\r\n      }\r\n    } catch (NullPointerException e) {\r\n      System.out.println(\"Input is wrong, try again.\");\r\n    } catch (InputIsIncorrectException e) {\r\n      System.out.println(e.getMessage());\r\n    }\r\n  }\r\n\r\n  private void createClientMenu() {\r\n    while (true) {\r\n      try {\r\n        System.out.println(\"Please, enter the bank's ID.\");\r\n        input = scanner.nextLine();\r\n        if (input.equals(\"\")) {\r\n          throw new InputIsIncorrectException();\r\n        }\r\n\r\n        var bankId = UUID.fromString(input);\r\n        Bank bank = cb.getBankById(bankId);\r\n        System.out.println(\"Please, enter the client's name.\");\r\n        String name = scanner.nextLine();\r\n        System.out.println(\"Please, enter the client's date of birth.\");\r\n        input = scanner.nextLine();\r\n        if (input.equals(\"\") || name.equals(\"\")) {\r\n          System.out.println(\"Input is wrong, try again.\");\r\n        } else {\r\n          var date = Date.valueOf(input);\r\n          System.out.println(\"Please, enter the client's passport number.\");\r\n          String passportNumber = scanner.nextLine();\r\n          System.out.println(\"Please, enter the client's address.\");\r\n          String address = scanner.nextLine();\r\n          var client = new Client(UUID.randomUUID(), name, date, passportNumber, address);\r\n          bank.addClient(client);\r\n          break;\r\n        }\r\n      } catch (NullPointerException e) {\r\n        System.out.println(\"Input is wrong, try again.\");\r\n      } catch (IllegalArgumentException e) {\r\n        System.out.println(\"Your date is wrong, check it, please.\");\r\n      } catch (NoBankFoundException | InputIsIncorrectException e) {\r\n        System.out.println(e.getMessage());\r\n      }\r\n    }\r\n  }\r\n\r\n  private void createAccountMenu() {\r\n    while (true) {\r\n      try {\r\n        System.out.println(\"Please, enter the bank's ID.\");\r\n        input = scanner.nextLine();\r\n        System.out.println(\"Please, enter the client's ID.\");\r\n        String clientId = scanner.nextLine();\r\n        if (input.equals(\"\") | clientId.equals(\"\")) {\r\n          throw new InputIsIncorrectException();\r\n        }\r\n\r\n        Bank bank = cb.getBankById(UUID.fromString(input));\r\n        Client client = bank.getAllClients().stream()\r\n            .filter(currentClient -> currentClient.getId().equals(UUID.fromString(clientId)))\r\n            .findFirst().orElseThrow();\r\n        while (true) {\r\n          System.out.println(\"Please write what kind of account you want to create: \\n\" +\r\n              \"1. Debit account. \\n\" +\r\n              \"2. Credit account. \\n\" +\r\n              \"3. Deposit account.\");\r\n          input = scanner.nextLine();\r\n          IAccount account;\r\n          switch (input) {\r\n            case \"1\":\r\n              account = createDebitAccount(client);\r\n              client.addAccount(account);\r\n              bank.addAccount(account);\r\n              break;\r\n            case \"2\":\r\n              account = createCreditAccount(client);\r\n              client.addAccount(account);\r\n              bank.addAccount(account);\r\n              break;\r\n            case \"3\":\r\n              account = createDepositAccount(client);\r\n              client.addAccount(account);\r\n              bank.addAccount(account);\r\n              break;\r\n            default:\r\n              System.out.println(\"Input is wrong, try again.\");\r\n              break;\r\n          }\r\n\r\n          if (input.equals(\"1\") | input.equals(\"2\") | input.equals(\"3\")) {\r\n            break;\r\n          }\r\n        }\r\n        break;\r\n      } catch (NullPointerException e) {\r\n        System.out.println(\"Input is wrong, try again.\");\r\n      } catch (NoBankFoundException | InputIsIncorrectException e) {\r\n        System.out.println(e.getMessage());\r\n      }\r\n    }\r\n  }\r\n\r\n  private CreditAccount createCreditAccount(Client client) {\r\n    while (true) {\r\n      try {\r\n        System.out.println(\"Please write the limit.\");\r\n        String limit = scanner.nextLine();\r\n        if (limit.equals(\"\")) {\r\n          throw new InputIsIncorrectException();\r\n        }\r\n\r\n        System.out.println(\"Please write the initial money amount.\");\r\n        String moneyAmount = scanner.nextLine();\r\n        if (moneyAmount.equals(\"\")) {\r\n          throw new InputIsIncorrectException();\r\n        }\r\n\r\n        System.out.println(\"Please write the commission.\");\r\n        String commission = scanner.nextLine();\r\n        if (commission.equals(\"\")) {\r\n          throw new InputIsIncorrectException();\r\n        }\r\n\r\n        return new CreditAccount(UUID.randomUUID(), Float.parseFloat(limit),\r\n            Float.parseFloat(moneyAmount), Float.parseFloat(commission), client);\r\n      } catch (NumberFormatException | NullPointerException e) {\r\n        System.out.println(\"Input is wrong, try again.\");\r\n      } catch (InputIsIncorrectException e) {\r\n        System.out.println(e.getMessage());\r\n      }\r\n    }\r\n  }\r\n\r\n  private DebitAccount createDebitAccount(Client client) {\r\n    while (true) {\r\n      try {\r\n        System.out.println(\"Please write the initial money amount.\");\r\n        String moneyAmount = scanner.nextLine();\r\n        if (moneyAmount.equals(\"\")) {\r\n          throw new InputIsIncorrectException();\r\n        }\r\n\r\n        System.out.println(\"Please write the percentage per year (as a fraction).\");\r\n        String percents = scanner.nextLine();\r\n        if (percents.equals(\"\")) {\r\n          throw new InputIsIncorrectException();\r\n        }\r\n\r\n        return new DebitAccount(Float.parseFloat(percents), UUID.randomUUID(), client,\r\n            Float.parseFloat(moneyAmount));\r\n      } catch (NumberFormatException | NullPointerException e) {\r\n        System.out.println(\"Input is wrong, try again.\");\r\n      } catch (InputIsIncorrectException e) {\r\n        System.out.println(e.getMessage());\r\n      }\r\n    }\r\n  }\r\n\r\n  private DepositAccount createDepositAccount(Client client) {\r\n    while (true) {\r\n      try {\r\n        System.out.println(\"Please write the initial money amount.\");\r\n        String moneyAmount = scanner.nextLine();\r\n        if (moneyAmount.equals(\"\")) {\r\n          throw new InputIsIncorrectException();\r\n        }\r\n\r\n        System.out.println(\r\n            \"Please write the percentage per year less initial sum to greater ones (as a fraction and from new line).\");\r\n        var percents = new ArrayList<Float>();\r\n        for (int i = 0; i < 4; i++) {\r\n          input = scanner.nextLine();\r\n          var parsedValue = Float.parseFloat(scanner.nextLine());\r\n          percents.add(parsedValue);\r\n        }\r\n\r\n        var account = new DepositAccount(UUID.randomUUID(), percents, Float.parseFloat(moneyAmount),\r\n            client);\r\n        return account;\r\n      } catch (NumberFormatException | NullPointerException e) {\r\n        System.out.println(\"Input is wrong, try again.\");\r\n      } catch (InputIsIncorrectException | PercentageListIsCorruptedException |\r\n               SomeArgumentIsNullException e) {\r\n        System.out.println(e.getMessage());\r\n      }\r\n    }\r\n  }\r\n\r\n  private void showAllBanks() {\r\n    System.out.println(cb.getAllBanks());\r\n  }\r\n\r\n  private void showAllTransactions() {\r\n    System.out.println(cb.getAllTransactions());\r\n  }\r\n\r\n  private void showAllClients() {\r\n    while (true) {\r\n      try {\r\n        System.out.println(\"Please write the bank's id.\");\r\n        var guid = UUID.fromString(scanner.nextLine());\r\n        Bank bank = cb.getBankById(guid);\r\n        System.out.println(bank.getAllClients());\r\n        break;\r\n      } catch (NoBankFoundException e) {\r\n        System.out.println(e.getMessage());\r\n      } catch (NumberFormatException | NullPointerException e) {\r\n        System.out.println(\"Input is wrong, try again.\");\r\n      }\r\n    }\r\n  }\r\n\r\n  private void showAllAccounts() {\r\n    while (true) {\r\n      try {\r\n        System.out.println(\"Please write the bank's id.\");\r\n        var bankId = UUID.fromString(scanner.nextLine());\r\n        System.out.println(\"Please write the client's id.\");\r\n        var clientId = UUID.fromString(scanner.nextLine());\r\n        Bank bank = cb.getBankById(bankId);\r\n        Client client = bank.getAllClients().stream()\r\n            .filter(currentClient -> currentClient.getId().equals(clientId)).findFirst()\r\n            .orElseThrow();\r\n        System.out.println(client.getAllAccounts());\r\n        break;\r\n      } catch (NoBankFoundException e) {\r\n        System.out.println(e.getMessage());\r\n      } catch (NoSuchElementException e) {\r\n        System.out.println(\"No client with this ID was found.\");\r\n      }\r\n    }\r\n  }\r\n\r\n  private void skipSomeTime() {\r\n    while (true) {\r\n      try {\r\n        System.out.println(\"Please enter amount of days you want to skip\");\r\n        int days = Integer.parseInt(scanner.nextLine());\r\n        cb.skipDays(days);\r\n        break;\r\n      } catch (NumberFormatException | NullPointerException e) {\r\n        System.out.println(\"Input is wrong.\");\r\n      } catch (NotEnoughMoneyException e) {\r\n        System.out.println(e.getMessage());\r\n      }\r\n    }\r\n  }\r\n\r\n  private void rollBackTransaction() {\r\n    while (true) {\r\n      try {\r\n        System.out.println(\"Please enter the transaction's ID\");\r\n        cb.rollBackTransaction(scanner.nextLine());\r\n      } catch (NotEnoughMoneyException | AccountDoesNotSupportOperationException |\r\n               TransactionAlreadyRolledBackException | NoTransactionFoundException e) {\r\n        System.out.println(e.getMessage());\r\n      } catch (NullPointerException e) {\r\n        System.out.println(\"Input is wrong.\");\r\n      }\r\n    }\r\n  }\r\n\r\n  private void transferMoney() {\r\n    while (true) {\r\n      try {\r\n        System.out.println(\"Please enter the source's ID\");\r\n        String sourceId = scanner.nextLine();\r\n        System.out.println(\"Please enter the destinations's ID\");\r\n        String destinationsId = scanner.nextLine();\r\n        System.out.println(\"Please enter the money amount\");\r\n        float moneyAmount = Float.parseFloat(scanner.nextLine());\r\n        cb.transferMoneyBetweenAccounts(sourceId, destinationsId, moneyAmount);\r\n      } catch (NumberFormatException | NullPointerException | InputIsIncorrectException e) {\r\n        System.out.println(\"Input is wrong.\");\r\n      } catch (NotEnoughMoneyException | AccountDoesNotSupportOperationException |\r\n               TooManyOrNoneAccountsWereFoundException e) {\r\n        System.out.println(e.getMessage());\r\n      }\r\n    }\r\n  }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/BanksConsoleInterface/ViewMenu.java b/src/main/java/BanksConsoleInterface/ViewMenu.java
+--- a/src/main/java/BanksConsoleInterface/ViewMenu.java	(revision c718fca2d5f63cfc31ded00d9c48cfbfdee90c59)
++++ b/src/main/java/BanksConsoleInterface/ViewMenu.java	(date 1676239022580)
+@@ -14,7 +14,7 @@
+ import BanksCore.Exceptions.SomeArgumentIsNullException;
+ import BanksCore.Exceptions.TooManyOrNoneAccountsWereFoundException;
+ import BanksCore.Exceptions.TransactionAlreadyRolledBackException;
+-import BanksCore.Interfaces.IAccount;
++import BanksCore.Interfaces.Account;
+ import BanksCore.Services.CentralBank;
+ import java.sql.Date;
+ import java.util.ArrayList;
+@@ -22,6 +22,10 @@
+ import java.util.Scanner;
+ import java.util.UUID;
+ 
++/**
++ * Generates the main menu and offers to select an action
++ */
++
+ public class ViewMenu {
+ 
+   private String input;
+@@ -32,6 +36,9 @@
+     this.cb = cb;
+   }
+ 
++  /**
++   * Main method of the class, providing access to the menu.
++   */
+   public void showMenuAndGetInput() {
+     while (true) {
+       System.out.println("Please, select number from the presented options: \n" +
+@@ -171,7 +178,7 @@
+               "2. Credit account. \n" +
+               "3. Deposit account.");
+           input = scanner.nextLine();
+-          IAccount account;
++          Account account;
+           switch (input) {
+             case "1":
+               account = createDebitAccount(client);
+Index: src/main/java/BanksCore/Exceptions/NotEnoughMoneyException.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package BanksCore.Exceptions;\r\n\r\nimport BanksCore.Interfaces.IAccount;\r\n\r\npublic class NotEnoughMoneyException extends Exception{\r\n\r\n  public NotEnoughMoneyException(IAccount account, float amount) {\r\n    super(\"Account \" + account.getId() + \" has less money than \" + amount + \".\");\r\n  }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/BanksCore/Exceptions/NotEnoughMoneyException.java b/src/main/java/BanksCore/Exceptions/NotEnoughMoneyException.java
+--- a/src/main/java/BanksCore/Exceptions/NotEnoughMoneyException.java	(revision c718fca2d5f63cfc31ded00d9c48cfbfdee90c59)
++++ b/src/main/java/BanksCore/Exceptions/NotEnoughMoneyException.java	(date 1676104104097)
+@@ -1,10 +1,10 @@
+ package BanksCore.Exceptions;
+ 
+-import BanksCore.Interfaces.IAccount;
++import BanksCore.Interfaces.Account;
+ 
+ public class NotEnoughMoneyException extends Exception{
+ 
+-  public NotEnoughMoneyException(IAccount account, float amount) {
++  public NotEnoughMoneyException(Account account, float amount) {
+     super("Account " + account.getId() + " has less money than " + amount + ".");
+   }
+ }
+Index: src/main/java/BanksCore/Exceptions/TransactionAlreadyRolledBackException.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package BanksCore.Exceptions;\r\n\r\nimport BanksCore.Interfaces.ITransaction;\r\n\r\npublic class TransactionAlreadyRolledBackException extends Exception {\r\n\r\n  public TransactionAlreadyRolledBackException(ITransaction transaction) {\r\n    super(\"This transaction is already rolled back: \" + transaction);\r\n  }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/BanksCore/Exceptions/TransactionAlreadyRolledBackException.java b/src/main/java/BanksCore/Exceptions/TransactionAlreadyRolledBackException.java
+--- a/src/main/java/BanksCore/Exceptions/TransactionAlreadyRolledBackException.java	(revision c718fca2d5f63cfc31ded00d9c48cfbfdee90c59)
++++ b/src/main/java/BanksCore/Exceptions/TransactionAlreadyRolledBackException.java	(date 1676155376093)
+@@ -1,10 +1,10 @@
+ package BanksCore.Exceptions;
+ 
+-import BanksCore.Interfaces.ITransaction;
++import BanksCore.Interfaces.Transaction;
+ 
+ public class TransactionAlreadyRolledBackException extends Exception {
+ 
+-  public TransactionAlreadyRolledBackException(ITransaction transaction) {
++  public TransactionAlreadyRolledBackException(Transaction transaction) {
+     super("This transaction is already rolled back: " + transaction);
+   }
+ }
+Index: src/main/java/BanksCore/Interfaces/IAccount.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/BanksCore/Interfaces/IAccount.java b/src/main/java/BanksCore/Interfaces/Account.java
+rename from src/main/java/BanksCore/Interfaces/IAccount.java
+rename to src/main/java/BanksCore/Interfaces/Account.java
+--- a/src/main/java/BanksCore/Interfaces/IAccount.java	(revision c718fca2d5f63cfc31ded00d9c48cfbfdee90c59)
++++ b/src/main/java/BanksCore/Interfaces/Account.java	(date 1676155376130)
+@@ -3,8 +3,10 @@
+ import BanksCore.Exceptions.AccountDoesNotSupportOperationException;
+ import BanksCore.Exceptions.NotEnoughMoneyException;
+ import java.util.UUID;
+-
+-public interface IAccount {
++/**
++ * Comprehensive interface, uniting different types of bank accounts
++ */
++public interface Account {
+   UUID getId();
+   boolean isReliable();
+   void changeReliability();
+Index: src/main/java/BanksCore/Interfaces/ITransaction.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/BanksCore/Interfaces/ITransaction.java b/src/main/java/BanksCore/Interfaces/Transaction.java
+rename from src/main/java/BanksCore/Interfaces/ITransaction.java
+rename to src/main/java/BanksCore/Interfaces/Transaction.java
+--- a/src/main/java/BanksCore/Interfaces/ITransaction.java	(revision c718fca2d5f63cfc31ded00d9c48cfbfdee90c59)
++++ b/src/main/java/BanksCore/Interfaces/Transaction.java	(date 1676155376193)
+@@ -4,9 +4,11 @@
+ import BanksCore.Exceptions.NotEnoughMoneyException;
+ import BanksCore.Exceptions.TransactionAlreadyRolledBackException;
+ import java.util.UUID;
+-
+-public interface ITransaction {
+-  public ITransaction execute()
++/**
++ * Comprehensive interface, uniting different types of transactions
++ */
++public interface Transaction {
++  public Transaction execute()
+       throws NotEnoughMoneyException, AccountDoesNotSupportOperationException;
+   public void rollBack()
+       throws TransactionAlreadyRolledBackException, NotEnoughMoneyException, AccountDoesNotSupportOperationException;
+Index: src/main/java/BanksCore/Entities/Accounts/DebitAccount.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package BanksCore.Entities.Accounts;\r\n\r\nimport BanksCore.Entities.Client;\r\nimport BanksCore.Exceptions.NotEnoughMoneyException;\r\nimport BanksCore.Interfaces.IAccount;\r\nimport java.util.Objects;\r\nimport java.util.UUID;\r\n\r\npublic class DebitAccount implements IAccount {\r\n\r\n  private final float percentAnnual;\r\n  private final UUID id;\r\n  private final Client client;\r\n  private float moneyAmount;\r\n  private boolean isReliable;\r\n  private float moneyForLastMonth;\r\n  private int dayOfMonth; // we count a month as 30 days\r\n\r\n  public DebitAccount(float percentAnnual, UUID id, Client client, float moneyAmount) {\r\n    this.percentAnnual = percentAnnual;\r\n    this.id = id;\r\n    this.client = client;\r\n    this.moneyAmount = moneyAmount;\r\n    moneyForLastMonth = 0;\r\n    dayOfMonth = 0;\r\n  }\r\n\r\n  @Override\r\n  public UUID getId() {\r\n    return id;\r\n  }\r\n\r\n  @Override\r\n  public boolean isReliable() {\r\n    return isReliable;\r\n  }\r\n\r\n  @Override\r\n  public void changeReliability() {\r\n    isReliable = !isReliable;\r\n  }\r\n\r\n  @Override\r\n  public float skipDayAndReturnNewAmount() throws NotEnoughMoneyException {\r\n    moneyForLastMonth += moneyAmount * (percentAnnual / 365);\r\n    if (dayOfMonth == 30) {\r\n      dayOfMonth = 0;\r\n      moneyAmount += moneyForLastMonth;\r\n      moneyForLastMonth = 0;\r\n    } else {\r\n      dayOfMonth++;\r\n    }\r\n\r\n    return moneyAmount;\r\n  }\r\n\r\n  @Override\r\n  public float getMoney() {\r\n    return moneyAmount;\r\n  }\r\n\r\n  @Override\r\n  public float addMoney(float amount) {\r\n    return moneyAmount += amount;\r\n  }\r\n\r\n  @Override\r\n  public float takeMoney(float amount) throws NotEnoughMoneyException {\r\n    if (!isEnoughMoney(amount))\r\n    {\r\n      throw new NotEnoughMoneyException(this, amount);\r\n    }\r\n\r\n    moneyAmount -= amount;\r\n    return moneyAmount;\r\n  }\r\n\r\n  @Override\r\n  public boolean isEnoughMoney(float amount) {\r\n    if (moneyAmount < amount)\r\n    {\r\n      return false;\r\n    }\r\n\r\n    return true;\r\n  }\r\n\r\n  @Override\r\n  public boolean equals(Object o) {\r\n    if (this == o) {\r\n      return true;\r\n    }\r\n    if (!(o instanceof DebitAccount that)) {\r\n      return false;\r\n    }\r\n\r\n    if (Float.compare(that.percentAnnual, percentAnnual) != 0) {\r\n      return false;\r\n    }\r\n    if (Float.compare(that.moneyAmount, moneyAmount) != 0) {\r\n      return false;\r\n    }\r\n    if (isReliable() != that.isReliable()) {\r\n      return false;\r\n    }\r\n    if (Float.compare(that.moneyForLastMonth, moneyForLastMonth) != 0) {\r\n      return false;\r\n    }\r\n    if (dayOfMonth != that.dayOfMonth) {\r\n      return false;\r\n    }\r\n    if (!getId().equals(that.getId())) {\r\n      return false;\r\n    }\r\n    return Objects.equals(client, that.client);\r\n  }\r\n\r\n  @Override\r\n  public int hashCode() {\r\n    int result = (percentAnnual != +0.0f ? Float.floatToIntBits(percentAnnual) : 0);\r\n    result = 31 * result + getId().hashCode();\r\n    result = 31 * result + (client != null ? client.hashCode() : 0);\r\n    result = 31 * result + (moneyAmount != +0.0f ? Float.floatToIntBits(moneyAmount) : 0);\r\n    result = 31 * result + (isReliable() ? 1 : 0);\r\n    result =\r\n        31 * result + (moneyForLastMonth != +0.0f ? Float.floatToIntBits(moneyForLastMonth) : 0);\r\n    result = 31 * result + dayOfMonth;\r\n    return result;\r\n  }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/BanksCore/Entities/Accounts/DebitAccount.java b/src/main/java/BanksCore/Entities/Accounts/DebitAccount.java
+--- a/src/main/java/BanksCore/Entities/Accounts/DebitAccount.java	(revision c718fca2d5f63cfc31ded00d9c48cfbfdee90c59)
++++ b/src/main/java/BanksCore/Entities/Accounts/DebitAccount.java	(date 1676240402545)
+@@ -2,11 +2,14 @@
+ 
+ import BanksCore.Entities.Client;
+ import BanksCore.Exceptions.NotEnoughMoneyException;
+-import BanksCore.Interfaces.IAccount;
++import BanksCore.Interfaces.Account;
+ import java.util.Objects;
+ import java.util.UUID;
++/**
++ * Type of account with no commission, which you can use to take and deposit money
++ */
+ 
+-public class DebitAccount implements IAccount {
++public class DebitAccount implements Account {
+ 
+   private final float percentAnnual;
+   private final UUID id;
+@@ -25,23 +28,38 @@
+     dayOfMonth = 0;
+   }
+ 
++  /**
++   *  Get the unique ID of the account
++   * @return the unique ID
++   */
+   @Override
+   public UUID getId() {
+     return id;
+   }
+ 
++  /**
++   *  Get a boolean representing reliability of the account
++   * @return reliability of the account
++   */
+   @Override
+   public boolean isReliable() {
+     return isReliable;
+   }
+ 
++  /**
++   *  Changes reliability of the account to opposite
++   */
+   @Override
+   public void changeReliability() {
+     isReliable = !isReliable;
+   }
+ 
++  /**
++   * Skip a day to see how account changes
++   * @return new amount of money on the account
++   */
+   @Override
+-  public float skipDayAndReturnNewAmount() throws NotEnoughMoneyException {
++  public float skipDayAndReturnNewAmount(){
+     moneyForLastMonth += moneyAmount * (percentAnnual / 365);
+     if (dayOfMonth == 30) {
+       dayOfMonth = 0;
+@@ -54,16 +72,31 @@
+     return moneyAmount;
+   }
+ 
++  /**
++   * Get exact amount of money left on the account
++   * @return amount of money left on the account
++   */
+   @Override
+   public float getMoney() {
+     return moneyAmount;
+   }
+ 
++  /**
++   * Allows to add money on the account
++   * @param amount declares how much money will be added
++   * @return new amount of money on the account
++   */
+   @Override
+   public float addMoney(float amount) {
+     return moneyAmount += amount;
+   }
+ 
++  /**
++   * Takes money from the account
++   * @param amount declares how much money will be withdrawn
++   * @return new amount of money on the account
++   * @throws NotEnoughMoneyException is thrown if account does not have enough money on the account.
++   */
+   @Override
+   public float takeMoney(float amount) throws NotEnoughMoneyException {
+     if (!isEnoughMoney(amount))
+@@ -75,6 +108,11 @@
+     return moneyAmount;
+   }
+ 
++  /**
++   * Checks is there enough money on the account
++   * @param amount declares an amount you want to check
++   * @return true -- if there is enough money on the account, false -- if not
++   */
+   @Override
+   public boolean isEnoughMoney(float amount) {
+     if (moneyAmount < amount)
+Index: src/main/java/BanksCore/Entities/Transactions/PutMoney.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package BanksCore.Entities.Transactions;\r\n\r\nimport BanksCore.Exceptions.AccountDoesNotSupportOperationException;\r\nimport BanksCore.Exceptions.NotEnoughMoneyException;\r\nimport BanksCore.Exceptions.TransactionAlreadyRolledBackException;\r\nimport BanksCore.Interfaces.IAccount;\r\nimport BanksCore.Interfaces.ITransaction;\r\nimport java.util.UUID;\r\n\r\npublic class PutMoney implements ITransaction {\r\n  private UUID id;\r\n  private IAccount account;\r\n  private float moneyAmount;\r\n  private boolean isRolledBack = false;\r\n\r\n  public PutMoney(UUID id, IAccount account, float moneyAmount)\r\n  {\r\n    this.id = id;\r\n    this.account = account;\r\n    this.moneyAmount = moneyAmount;\r\n  }\r\n\r\n  public ITransaction execute()\r\n  {\r\n    account.addMoney(moneyAmount);\r\n    return this;\r\n  }\r\n\r\n  public void rollBack()\r\n      throws TransactionAlreadyRolledBackException, NotEnoughMoneyException, AccountDoesNotSupportOperationException {\r\n    if (isRolledBack)\r\n    {\r\n      throw new TransactionAlreadyRolledBackException(this);\r\n    }\r\n\r\n    account.takeMoney(moneyAmount);\r\n    isRolledBack = true;\r\n  }\r\n\r\n  public UUID getId()\r\n  {\r\n    return id;\r\n  }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/BanksCore/Entities/Transactions/PutMoney.java b/src/main/java/BanksCore/Entities/Transactions/PutMoney.java
+--- a/src/main/java/BanksCore/Entities/Transactions/PutMoney.java	(revision c718fca2d5f63cfc31ded00d9c48cfbfdee90c59)
++++ b/src/main/java/BanksCore/Entities/Transactions/PutMoney.java	(date 1676242237716)
+@@ -3,24 +3,31 @@
+ import BanksCore.Exceptions.AccountDoesNotSupportOperationException;
+ import BanksCore.Exceptions.NotEnoughMoneyException;
+ import BanksCore.Exceptions.TransactionAlreadyRolledBackException;
+-import BanksCore.Interfaces.IAccount;
+-import BanksCore.Interfaces.ITransaction;
++import BanksCore.Interfaces.Account;
++import BanksCore.Interfaces.Transaction;
+ import java.util.UUID;
+ 
+-public class PutMoney implements ITransaction {
++/**
++ * Realisation of Transaction interface, providing ability of putting money on the account from an outer source
++ */
++public class PutMoney implements Transaction {
+   private UUID id;
+-  private IAccount account;
++  private Account account;
+   private float moneyAmount;
+   private boolean isRolledBack = false;
+ 
+-  public PutMoney(UUID id, IAccount account, float moneyAmount)
++  public PutMoney(UUID id, Account account, float moneyAmount)
+   {
+     this.id = id;
+     this.account = account;
+     this.moneyAmount = moneyAmount;
+   }
+ 
+-  public ITransaction execute()
++  /**
++   * Executes the transaction
++   * @return Transaction object representing the operation
++   */
++  public Transaction execute()
+   {
+     account.addMoney(moneyAmount);
+     return this;
+Index: src/main/java/BanksCore/Entities/Transactions/CashOut.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package BanksCore.Entities.Transactions;\r\n\r\nimport BanksCore.Exceptions.AccountDoesNotSupportOperationException;\r\nimport BanksCore.Exceptions.NotEnoughMoneyException;\r\nimport BanksCore.Exceptions.TransactionAlreadyRolledBackException;\r\nimport BanksCore.Interfaces.IAccount;\r\nimport BanksCore.Interfaces.ITransaction;\r\nimport java.util.UUID;\r\n\r\npublic class CashOut implements ITransaction {\r\n\r\n  private UUID id;\r\n  private IAccount account;\r\n  private float moneyAmount;\r\n  private boolean isRolledBack;\r\n\r\n  public CashOut(UUID guid, IAccount account, float moneyAmount) {\r\n    this.id = guid;\r\n    this.account = account;\r\n    this.moneyAmount = moneyAmount;\r\n  }\r\n\r\n  @Override\r\n  public ITransaction execute()\r\n      throws NotEnoughMoneyException, AccountDoesNotSupportOperationException {\r\n    account.takeMoney(moneyAmount);\r\n    return this;\r\n  }\r\n\r\n  @Override\r\n  public void rollBack() throws TransactionAlreadyRolledBackException {\r\n    if (isRolledBack)\r\n    {\r\n      throw new TransactionAlreadyRolledBackException(this);\r\n    }\r\n\r\n    account.addMoney(moneyAmount);\r\n    isRolledBack = true;\r\n  }\r\n\r\n  @Override\r\n  public UUID getId() {\r\n    return id;\r\n  }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/BanksCore/Entities/Transactions/CashOut.java b/src/main/java/BanksCore/Entities/Transactions/CashOut.java
+--- a/src/main/java/BanksCore/Entities/Transactions/CashOut.java	(revision c718fca2d5f63cfc31ded00d9c48cfbfdee90c59)
++++ b/src/main/java/BanksCore/Entities/Transactions/CashOut.java	(date 1676241882515)
+@@ -3,30 +3,43 @@
+ import BanksCore.Exceptions.AccountDoesNotSupportOperationException;
+ import BanksCore.Exceptions.NotEnoughMoneyException;
+ import BanksCore.Exceptions.TransactionAlreadyRolledBackException;
+-import BanksCore.Interfaces.IAccount;
+-import BanksCore.Interfaces.ITransaction;
++import BanksCore.Interfaces.Account;
++import BanksCore.Interfaces.Transaction;
+ import java.util.UUID;
+ 
+-public class CashOut implements ITransaction {
++/**
++ * Realisation of Transaction interface, providing ability of cashing out money of the account
++ */
++public class CashOut implements Transaction {
+ 
+   private UUID id;
+-  private IAccount account;
++  private Account account;
+   private float moneyAmount;
+   private boolean isRolledBack;
+ 
+-  public CashOut(UUID guid, IAccount account, float moneyAmount) {
++  public CashOut(UUID guid, Account account, float moneyAmount) {
+     this.id = guid;
+     this.account = account;
+     this.moneyAmount = moneyAmount;
+   }
+ 
++  /**
++   * Executes the transaction
++   * @return Transaction object representing the operation
++   * @throws NotEnoughMoneyException if the account has not enough money to accomplish the operation
++   * @throws AccountDoesNotSupportOperationException if the account can not withdraw money
++   */
+   @Override
+-  public ITransaction execute()
++  public Transaction execute()
+       throws NotEnoughMoneyException, AccountDoesNotSupportOperationException {
+     account.takeMoney(moneyAmount);
+     return this;
+   }
+ 
++  /**
++   * Cancels the transaction's effect
++   * @throws TransactionAlreadyRolledBackException if transaction is already rolled back
++   */
+   @Override
+   public void rollBack() throws TransactionAlreadyRolledBackException {
+     if (isRolledBack)
+@@ -38,6 +51,10 @@
+     isRolledBack = true;
+   }
+ 
++  /**
++   * Get the unique ID of the transaction
++   * @return the unique ID of the transaction
++   */
+   @Override
+   public UUID getId() {
+     return id;
+Index: src/main/java/BanksCore/Entities/Accounts/CreditAccount.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package BanksCore.Entities.Accounts;\r\n\r\nimport BanksCore.Entities.Client;\r\nimport BanksCore.Exceptions.NotEnoughMoneyException;\r\nimport BanksCore.Interfaces.IAccount;\r\nimport java.util.UUID;\r\n\r\npublic class CreditAccount implements IAccount {\r\n\r\n  private UUID id;\r\n  private float limit;\r\n  private Client client;\r\n  private float moneyAmount;\r\n  private float commission;\r\n  private boolean isReliable;\r\n\r\n  public CreditAccount(UUID id, float limit, float commission, float moneyAmount, Client client) {\r\n    this.id = id;\r\n    this.limit = limit;\r\n    this.client = client;\r\n    this.moneyAmount = moneyAmount;\r\n    this.commission = commission;\r\n  }\r\n\r\n  @Override\r\n  public UUID getId() {\r\n    return id;\r\n  }\r\n\r\n  @Override\r\n  public boolean isReliable() {\r\n    return isReliable;\r\n  }\r\n\r\n  @Override\r\n  public void changeReliability() {\r\n    isReliable = !isReliable;\r\n  }\r\n\r\n  @Override\r\n  public float skipDayAndReturnNewAmount() throws NotEnoughMoneyException {\r\n    if (moneyAmount < 0) {\r\n      takeMoney(commission);\r\n    }\r\n    return moneyAmount;\r\n  }\r\n\r\n  @Override\r\n  public float getMoney() {\r\n    return moneyAmount;\r\n  }\r\n\r\n  @Override\r\n  public float addMoney(float amount) {\r\n    moneyAmount += amount;\r\n    return moneyAmount;\r\n  }\r\n\r\n  @Override\r\n  public float takeMoney(float amount) throws NotEnoughMoneyException {\r\n    if (isEnoughMoney(amount)) {\r\n      moneyAmount -= amount;\r\n      return moneyAmount;\r\n    }\r\n    throw new NotEnoughMoneyException(this, amount);\r\n  }\r\n\r\n  @Override\r\n  public boolean isEnoughMoney(float amount) {\r\n    if (moneyAmount + Math.abs(limit) < amount) {\r\n      return false;\r\n    }\r\n\r\n    return true;\r\n  }\r\n\r\n  public float getLimit() {\r\n    return limit;\r\n  }\r\n\r\n  public Client getClient() {\r\n    return client;\r\n  }\r\n\r\n  public float getMoneyAmount() {\r\n    return moneyAmount;\r\n  }\r\n\r\n  public float getCommission() {\r\n    return commission;\r\n  }\r\n\r\n  @Override\r\n  public boolean equals(Object o) {\r\n    if (this == o) {\r\n      return true;\r\n    }\r\n    if (o == null || getClass() != o.getClass()) {\r\n      return false;\r\n    }\r\n\r\n    CreditAccount that = (CreditAccount) o;\r\n\r\n    if (Float.compare(that.limit, limit) != 0) {\r\n      return false;\r\n    }\r\n    if (Float.compare(that.moneyAmount, moneyAmount) != 0) {\r\n      return false;\r\n    }\r\n    if (Float.compare(that.commission, commission) != 0) {\r\n      return false;\r\n    }\r\n    if (isReliable != that.isReliable) {\r\n      return false;\r\n    }\r\n    if (!id.equals(that.id)) {\r\n      return false;\r\n    }\r\n    return client != null ? client.equals(that.client) : that.client == null;\r\n  }\r\n\r\n  @Override\r\n  public int hashCode() {\r\n    int result = id.hashCode();\r\n    result = 31 * result + (limit != +0.0f ? Float.floatToIntBits(limit) : 0);\r\n    result = 31 * result + (client != null ? client.hashCode() : 0);\r\n    result = 31 * result + (moneyAmount != +0.0f ? Float.floatToIntBits(moneyAmount) : 0);\r\n    result = 31 * result + (commission != +0.0f ? Float.floatToIntBits(commission) : 0);\r\n    result = 31 * result + (isReliable ? 1 : 0);\r\n    return result;\r\n  }\r\n\r\n  @Override\r\n  public String toString() {\r\n    return \"CreditAccount{\" +\r\n        \"id=\" + id +\r\n        \", limit=\" + limit +\r\n        \", client=\" + client +\r\n        \", moneyAmount=\" + moneyAmount +\r\n        \", commission=\" + commission +\r\n        \", isReliable=\" + isReliable +\r\n        '}';\r\n  }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/BanksCore/Entities/Accounts/CreditAccount.java b/src/main/java/BanksCore/Entities/Accounts/CreditAccount.java
+--- a/src/main/java/BanksCore/Entities/Accounts/CreditAccount.java	(revision c718fca2d5f63cfc31ded00d9c48cfbfdee90c59)
++++ b/src/main/java/BanksCore/Entities/Accounts/CreditAccount.java	(date 1676240402554)
+@@ -2,10 +2,14 @@
+ 
+ import BanksCore.Entities.Client;
+ import BanksCore.Exceptions.NotEnoughMoneyException;
+-import BanksCore.Interfaces.IAccount;
++import BanksCore.Interfaces.Account;
+ import java.util.UUID;
+ 
+-public class CreditAccount implements IAccount {
++/**
++ * Type of account which you can use to borrow money
++ */
++
++public class CreditAccount implements Account {
+ 
+   private UUID id;
+   private float limit;
+@@ -22,21 +26,36 @@
+     this.commission = commission;
+   }
+ 
++  /**
++   *  Get the unique ID of the account
++   * @return the unique ID
++   */
+   @Override
+   public UUID getId() {
+     return id;
+   }
+ 
++  /**
++   *  Get a boolean representing reliability of the account
++   * @return reliability of the account
++   */
+   @Override
+   public boolean isReliable() {
+     return isReliable;
+   }
+ 
++  /**
++   *  Changes reliability of the account to opposite
++   */
+   @Override
+   public void changeReliability() {
+     isReliable = !isReliable;
+   }
+ 
++  /**
++   * Skip a day to see how account changes
++   * @return new amount of money on the account
++   */
+   @Override
+   public float skipDayAndReturnNewAmount() throws NotEnoughMoneyException {
+     if (moneyAmount < 0) {
+@@ -45,17 +64,32 @@
+     return moneyAmount;
+   }
+ 
++  /**
++   * Get exact amount of money left on the account
++   * @return amount of money left on the account
++   */
+   @Override
+   public float getMoney() {
+     return moneyAmount;
+   }
+ 
++  /**
++   * Allows to add money on the account
++   * @param amount declares how much money will be added
++   * @return new amount of money on the account
++   */
+   @Override
+   public float addMoney(float amount) {
+     moneyAmount += amount;
+     return moneyAmount;
+   }
+ 
++  /**
++   * Takes money from the account
++   * @param amount declares how much money will be withdrawn
++   * @return new amount of money on the account
++   * @throws NotEnoughMoneyException is thrown if account does not have enough money on the account.
++   */
+   @Override
+   public float takeMoney(float amount) throws NotEnoughMoneyException {
+     if (isEnoughMoney(amount)) {
+@@ -65,6 +99,11 @@
+     throw new NotEnoughMoneyException(this, amount);
+   }
+ 
++  /**
++   * Checks is there enough money on the account
++   * @param amount declares an amount you want to check
++   * @return true -- if there is enough money on the account, false -- if not
++   */
+   @Override
+   public boolean isEnoughMoney(float amount) {
+     if (moneyAmount + Math.abs(limit) < amount) {
+@@ -74,18 +113,37 @@
+     return true;
+   }
+ 
++  /**
++   * Gets the limit of the account
++   * @return the limit of the account
++   */
+   public float getLimit() {
+     return limit;
+   }
+ 
++  /**
++   * Gets the owner of the account
++   * @return the owner of the account
++   */
++
+   public Client getClient() {
+     return client;
+   }
+ 
++  /**
++   * Gets the money amount of the account
++   * @return the money amount of the account
++   */
++
+   public float getMoneyAmount() {
+     return moneyAmount;
+   }
+ 
++  /**
++   * Gets the commission per day of the account
++   * @return the commission per day of the account
++   */
++
+   public float getCommission() {
+     return commission;
+   }
+Index: src/main/java/BanksCore/Services/CentralBank.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package BanksCore.Services;\r\n\r\nimport BanksCore.Entities.Bank;\r\nimport BanksCore.Entities.Client;\r\nimport BanksCore.Entities.Transactions.Transfer;\r\nimport BanksCore.Exceptions.*;\r\nimport BanksCore.Interfaces.IAccount;\r\nimport BanksCore.Interfaces.ITransaction;\r\nimport java.util.ArrayList;\r\nimport java.util.Collection;\r\nimport java.util.List;\r\nimport java.util.NoSuchElementException;\r\nimport java.util.UUID;\r\nimport java.util.stream.Stream;\r\n\r\npublic class CentralBank {\r\n\r\n  private final List<Bank> banks = new ArrayList<>();\r\n  private final List<ITransaction> transactions = new ArrayList<ITransaction>();\r\n\r\n  public Bank addBank(String name) {\r\n    var bank = new Bank(UUID.randomUUID(), name);\r\n    banks.add(bank);\r\n    return bank;\r\n  }\r\n\r\n  public void transferMoneyBetweenAccounts(String sourceId, String destinationId, float amount)\r\n      throws NotEnoughMoneyException, AccountDoesNotSupportOperationException, TooManyOrNoneAccountsWereFoundException, NumberFormatException, InputIsIncorrectException {\r\n    if (amount > 0) {\r\n      IAccount source = getAccountById(UUID.fromString(sourceId));\r\n      IAccount destination = getAccountById(UUID.fromString(destinationId));\r\n      var transfer = new Transfer(UUID.randomUUID(), source, destination, amount);\r\n      transactions.add(transfer);\r\n      transfer.execute();\r\n    } else {\r\n      throw new InputIsIncorrectException();\r\n    }\r\n  }\r\n\r\n  public void rollBackTransaction(String transactionId)\r\n      throws NotEnoughMoneyException, AccountDoesNotSupportOperationException, TransactionAlreadyRolledBackException, NoTransactionFoundException {\r\n    ITransaction transaction = getTransactionById(UUID.fromString(transactionId));\r\n    transaction.rollBack();\r\n  }\r\n\r\n  public IAccount getAccountById(UUID id) throws TooManyOrNoneAccountsWereFoundException {\r\n    try {\r\n      Stream<Client> clientStream = banks.stream().flatMap(bank -> bank.getAllClients().stream());\r\n      return clientStream.flatMap(client -> client.getAccounts().stream())\r\n          .filter(currentAccount -> currentAccount.getId().equals(id)).findFirst()\r\n          .orElseThrow();\r\n    } catch (NoSuchElementException e) {\r\n      throw new TooManyOrNoneAccountsWereFoundException(id);\r\n    }\r\n  }\r\n\r\n  public ITransaction getTransactionById(UUID id) throws NoTransactionFoundException {\r\n    try {\r\n      return transactions.stream()\r\n          .filter(currentTransaction -> currentTransaction.getId().equals(id)).findFirst()\r\n          .orElseThrow();\r\n    } catch (NoSuchElementException e) {\r\n      throw new NoTransactionFoundException(id);\r\n    }\r\n\r\n  }\r\n\r\n  public Bank getBankById(UUID id) throws NoBankFoundException {\r\n    try {\r\n      return banks.stream()\r\n          .filter(currentBank -> currentBank.getId().equals(id)).findFirst()\r\n          .orElseThrow();\r\n    } catch (NoSuchElementException e) {\r\n      throw new NoBankFoundException(id);\r\n    }\r\n  }\r\n\r\n  public void skipDays(int amount) throws NotEnoughMoneyException {\r\n    List<IAccount> allAccounts = banks.stream().flatMap(bank -> bank.getAccounts().stream())\r\n        .toList();\r\n    for (int i = 0; i < amount; i++) {\r\n      for (IAccount account : allAccounts) {\r\n        account.skipDayAndReturnNewAmount();\r\n      }\r\n    }\r\n  }\r\n\r\n  public Collection<Bank> getAllBanks() {\r\n    return new ArrayList<>(banks);\r\n  }\r\n\r\n  public Collection<ITransaction> getAllTransactions() {\r\n    return new ArrayList<>(transactions);\r\n  }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/BanksCore/Services/CentralBank.java b/src/main/java/BanksCore/Services/CentralBank.java
+--- a/src/main/java/BanksCore/Services/CentralBank.java	(revision c718fca2d5f63cfc31ded00d9c48cfbfdee90c59)
++++ b/src/main/java/BanksCore/Services/CentralBank.java	(date 1676155376138)
+@@ -4,8 +4,8 @@
+ import BanksCore.Entities.Client;
+ import BanksCore.Entities.Transactions.Transfer;
+ import BanksCore.Exceptions.*;
+-import BanksCore.Interfaces.IAccount;
+-import BanksCore.Interfaces.ITransaction;
++import BanksCore.Interfaces.Account;
++import BanksCore.Interfaces.Transaction;
+ import java.util.ArrayList;
+ import java.util.Collection;
+ import java.util.List;
+@@ -16,7 +16,7 @@
+ public class CentralBank {
+ 
+   private final List<Bank> banks = new ArrayList<>();
+-  private final List<ITransaction> transactions = new ArrayList<ITransaction>();
++  private final List<Transaction> transactions = new ArrayList<Transaction>();
+ 
+   public Bank addBank(String name) {
+     var bank = new Bank(UUID.randomUUID(), name);
+@@ -27,8 +27,8 @@
+   public void transferMoneyBetweenAccounts(String sourceId, String destinationId, float amount)
+       throws NotEnoughMoneyException, AccountDoesNotSupportOperationException, TooManyOrNoneAccountsWereFoundException, NumberFormatException, InputIsIncorrectException {
+     if (amount > 0) {
+-      IAccount source = getAccountById(UUID.fromString(sourceId));
+-      IAccount destination = getAccountById(UUID.fromString(destinationId));
++      Account source = getAccountById(UUID.fromString(sourceId));
++      Account destination = getAccountById(UUID.fromString(destinationId));
+       var transfer = new Transfer(UUID.randomUUID(), source, destination, amount);
+       transactions.add(transfer);
+       transfer.execute();
+@@ -39,11 +39,11 @@
+ 
+   public void rollBackTransaction(String transactionId)
+       throws NotEnoughMoneyException, AccountDoesNotSupportOperationException, TransactionAlreadyRolledBackException, NoTransactionFoundException {
+-    ITransaction transaction = getTransactionById(UUID.fromString(transactionId));
++    Transaction transaction = getTransactionById(UUID.fromString(transactionId));
+     transaction.rollBack();
+   }
+ 
+-  public IAccount getAccountById(UUID id) throws TooManyOrNoneAccountsWereFoundException {
++  public Account getAccountById(UUID id) throws TooManyOrNoneAccountsWereFoundException {
+     try {
+       Stream<Client> clientStream = banks.stream().flatMap(bank -> bank.getAllClients().stream());
+       return clientStream.flatMap(client -> client.getAccounts().stream())
+@@ -54,7 +54,7 @@
+     }
+   }
+ 
+-  public ITransaction getTransactionById(UUID id) throws NoTransactionFoundException {
++  public Transaction getTransactionById(UUID id) throws NoTransactionFoundException {
+     try {
+       return transactions.stream()
+           .filter(currentTransaction -> currentTransaction.getId().equals(id)).findFirst()
+@@ -76,10 +76,10 @@
+   }
+ 
+   public void skipDays(int amount) throws NotEnoughMoneyException {
+-    List<IAccount> allAccounts = banks.stream().flatMap(bank -> bank.getAccounts().stream())
++    List<Account> allAccounts = banks.stream().flatMap(bank -> bank.getAccounts().stream())
+         .toList();
+     for (int i = 0; i < amount; i++) {
+-      for (IAccount account : allAccounts) {
++      for (Account account : allAccounts) {
+         account.skipDayAndReturnNewAmount();
+       }
+     }
+@@ -89,7 +89,7 @@
+     return new ArrayList<>(banks);
+   }
+ 
+-  public Collection<ITransaction> getAllTransactions() {
++  public Collection<Transaction> getAllTransactions() {
+     return new ArrayList<>(transactions);
+   }
+ }
